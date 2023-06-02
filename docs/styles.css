@@ -1,0 +1,157 @@
+.navigation {
+    border-radius: 50px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navigation ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navigation li a {
+    font-family: Courier New, monospace;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 19px;
+}
+
+body {
+    background-color: #000000;
+    font-family: Courier New, monospace;
+    background-image: url("./images/global_img/background.gif");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: 50% 50%;
+}
+
+.box {
+    width: 450px;
+    background: rgba(100, 100, 100, 0.1);
+    padding: 40px;
+    text-align: center;
+    margin: auto;
+    margin-top: 5%;
+    color: white
+}
+
+.box-img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+
+.box h1 {
+    font-size: 40px;
+    letter-spacing: 4px;
+    font-weight: 100;
+    color: white;
+}
+
+.box h3 {
+    font-size: 20px;
+    letter-spacing: 3px;
+    font-weight: 100;
+}
+
+.box p {
+    letter-spacing: 2px;
+}
+
+.container {
+    margin: 0 auto;
+    width: 960px;
+}
+
+.social_icons {
+    text-align: center;
+}
+
+.social_icons a{
+    text-decoration: none;
+    padding: 20px;
+}
+
+.social_icons ul{
+    padding: 0;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 65%;
+}
+
+p.shifted {
+    margin-left: 75px;
+}
+
+.container h1 {
+    font-size: 30px;
+    letter-spacing: 4px;
+    font-weight: 100;
+    color: white;
+    text-align: center;
+}
+
+.container h2 {
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    letter-spacing: 3px;
+    font-weight: 100;
+}
+
+ul li a {
+    text-decoration: none;
+}
+
+.container h3 {
+    color: white;
+    text-decoration: underline;
+}
+
+.container p {
+    color: white;
+}
+
+.project_header {
+    margin: 0 auto;
+    width: 960px;
+    color: white;
+}
+
+.git_embed {
+    margin: 0 auto;
+    width: 960px;
+    color: white;
+}
+
+.experience_containter{
+    margin: 0 auto;
+    width: 960px;
+    color: white;
+}
+
+a:link {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+a:visited {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    background-color: transparent;
+    text-decoration: underline;
+}
