@@ -1,9 +1,9 @@
 html, body {
-  height: 100%;
   margin: 0;
   background-image: url('background.gif');
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: center;
+  background-color: #000;
 }
 
 body {
@@ -12,12 +12,23 @@ body {
   background-color: #000;
   display: flex;
   justify-content: center;
+}
+
+.main_container {
+  max-width: 800px;
+  background-color: rgba(85, 85, 85, 0);
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .container {
   max-width: 800px;
-  width: 100%;
   background-color: rgba(85, 85, 85, 0);
   min-height: 100%;
   box-sizing: border-box;
