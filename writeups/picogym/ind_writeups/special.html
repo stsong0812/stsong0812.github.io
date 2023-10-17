@@ -27,25 +27,29 @@
             <h2>Special</h2>
             <hr>
             <p>
-                <b><u>Description:</u></b> There's a flag shop selling stuff, can you buy a flag? Source. Connect with
-                nc jupiter.challenges.picoctf.org 4906.
+                <b><u>Description:</u></b> Don't power users get tired of making spelling mistakes in the shell? Not
+                anymore! Enter Special, the Spell Checked Interface for Affecting Linux. Now, every word is properly
+                spelled and capitalized... automatically and behind-the-scenes! Be the first to test Special in beta,
+                and feel free to tell us all about how Special streamlines every development process that you face. When
+                your co-workers see your amazing shell interface, just tell them: That's Special (TM) Start your
+                instance to see connection details.
                 <br><br>
-                <b><u>Writeup:</u></b> Looking through the source code, notice these...
+                <b><u>Writeup:</u></b> Upon launching the instance, connecting to the server, and attempting to try
+                standard commands, notice...
             <ul>
-                <li>The use of the int data type for the total_cost variable (line 38)</li>
-                <li>The multiplication of 900 to the number_of_flags variable (line 39)</li>
-                <li>If total cost is less than or equal to account balance, new account balance equals account balance -
-                    total cost (lines 41, 42)</li>
+                <li>Every first letter is capitalized ( e.g. clear = Clear)</li>
+                <li>Every word in our command is auto corrected ( e.g. cd = Ad)</li>
             </ul>
-            In C, a 32-bit int's range of value is -2,147,483,648 to 2,147,483,647. If our multiplication of flags
-            exceeded the range of values allowed, it will overflow our total_cost. We need to find a number of flags
-            that when multiplied by 900 will exceed 2,147,483,647, and when calculating for the new account balance will
-            give us a positive number. The lowest number we can use is 2386095.
+            We need to utilize commands that are not executed as our first statement, as it's first letter will be
+            capitalized. Additionally, our command must be a word, otherwise it will get auto corrected.
             <br><br>
-            An overflow in our total cost causes a negative value, and when the program calculates our new account
-            balance, our starting balance minus a negative number will give us a positive value.
+            Using the pipe ("|") would help us achieve these goals.Our first command preceding the pipe can be anything,
+            but our second command should be a find command. We can use the find . command to search through our working
+            directory. Here we see the flag.txt file located in the /blarch directory.
             <br><br>
-            <img src="../../../images/genskill_img/flag_shop.png" alt="Terminal window" style="max-width: 100%;"
+            Using the same method, this time cat the flag.txt file.
+            <br><br>
+            <img src="../../../images/genskill_img/sepcial.png" alt="Terminal window" style="max-width: 100%;"
                 onclick="enlargeImg()" id="img1" />
             </p>
             <hr>
