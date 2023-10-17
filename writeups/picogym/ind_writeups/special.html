@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Permissions</title>
+    <title>Special</title>
     <link rel="stylesheet" href="../../../style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
@@ -24,24 +24,29 @@
         </header>
 
         <main>
-            <h2>Permissions</h2>
+            <h2>Special</h2>
             <hr>
             <p>
-                <b><u>Description:</u></b> Can you read files in the root file? Additional details will be available
-                after
-                launching your challenge instance.
+                <b><u>Description:</u></b> There's a flag shop selling stuff, can you buy a flag? Source. Connect with
+                nc jupiter.challenges.picoctf.org 4906.
                 <br><br>
-                <b><u>Writeup:</u></b> List possible commands with sudo -l. We
-                see that we have access to vi (vim), vim is the default editor that comes with UNIX operating
-                systems. We can use vim to execute commands through its command mode.
-                <br><br>
-                Open vim with sudo. To run commands through vim
-                preface each command with ":!". Execute :! ls -a /root to list all files, including hidden files,
-                within the root directory. We see the flag file, press enter to execute another command through vim.
-                Next execute :! cat /root/.flag.txt for the flag.
-                <br><br>
-                <img src="../../../images/genskill_img/permissions.png" alt="Terminal window" style="max-width: 100%;"
-                    onclick="enlargeImg()" id="img1" />
+                <b><u>Writeup:</u></b> Looking through the source code, notice these...
+            <ul>
+                <li>The use of the int data type for the total_cost variable (line 38)</li>
+                <li>The multiplication of 900 to the number_of_flags variable (line 39)</li>
+                <li>If total cost is less than or equal to account balance, new account balance equals account balance -
+                    total cost (lines 41, 42)</li>
+            </ul>
+            In C, a 32-bit int's range of value is -2,147,483,648 to 2,147,483,647. If our multiplication of flags
+            exceeded the range of values allowed, it will overflow our total_cost. We need to find a number of flags
+            that when multiplied by 900 will exceed 2,147,483,647, and when calculating for the new account balance will
+            give us a positive number. The lowest number we can use is 2386095.
+            <br><br>
+            An overflow in our total cost causes a negative value, and when the program calculates our new account
+            balance, our starting balance minus a negative number will give us a positive value.
+            <br><br>
+            <img src="../../../images/genskill_img/flag_shop.png" alt="Terminal window" style="max-width: 100%;"
+                onclick="enlargeImg()" id="img1" />
             </p>
             <hr>
         </main>
