@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chrono</title>
+    <title>Permissions</title>
     <link rel="stylesheet" href="../../../style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
@@ -24,27 +24,24 @@
         </header>
 
         <main>
-            <h2>30. chrono</h2>
+            <h2>32. Permissions</h2>
             <hr>
             <p>
-                <b><u>Description:</u></b> How to automate tasks to run at intervals on linux servers? Additional
-                details
-                will be available after launching your challenge instance.
+                <b><u>Description:</u></b> Can you read files in the root file? Additional details will be available
+                after
+                launching your challenge instance.
                 <br><br>
-                <b><u>Writeup:</u></b> Upon launching the challenge instance, we are provided with the server, port,
-                username, and password for an assh connection.
+                <b><u>Writeup:</u></b> List possible commands with sudo -l. We
+                see that we have access to vi (vim), vim is the default editor that comes with UNIX operating
+                systems. We can use vim to execute commands through its command mode.
                 <br><br>
-                SSH connection syntax goes as follows, (username)@(server) and optionally -p (port). Enter the given
-                information in this order. According to the description, we are looking for an automated task on the
-                server.
+                Open vim with sudo. To run commands through vim
+                preface each command with ":!". Execute :! ls -a /root to list all files, including hidden files,
+                within the root directory. We see the flag file, press enter to execute another command through vim.
+                Next execute :! cat /root/.flag.txt for the flag.
                 <br><br>
-                To find the list of automated commands on a given system, we must locate the
-                'crontab' file. This file is located in the 'etc' directory, the crontab file contains a list of
-                commands that are executed on a regular schedule. Concatenating the command gives us our flag.
-                <br><br>
-                <img src="../../../images/genskill_img/chrono.png" alt="Terminal window" style="max-width: 100%;" onclick="enlargeImg()"
-                id="img1"/>
-            </p>
+                <img src="../../../images/genskill_img/permissions.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="enlargeImg()" id="img1" />
             </p>
             <hr>
         </main>
