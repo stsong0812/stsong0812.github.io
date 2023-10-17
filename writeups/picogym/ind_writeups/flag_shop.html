@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flag_Shop</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../../index.html">/Home</a>
+                <a href="../../../about.html">/About</a>
+                <a href="../../../projects.html">/Projects</a>
+                <a href="../../../writeups.html">/Writeups</a>
+            </nav>
+        </header>
+
+        <main>
+            <h2>32. flag_shop</h2>
+            <hr>
+            <p>
+                <b><u>Description:</u></b> There's a flag shop selling stuff, can you buy a flag? Source. Connect with
+                nc jupiter.challenges.picoctf.org 4906.
+                <br><br>
+                <b><u>Writeup:</u></b> Looking through the source code, notice these...
+            <ul>
+                <li>The use of the int data type for the total_cost variable (line 38)</li>
+                <li>The multiplication of 900 to the number_of_flags variable (line 39)</li>
+                <li>If total cost is less than or equal to account balance, new account balance equals account balance -
+                    total cost (lines 41, 42)</li>
+            </ul>
+            In C, a 32-bit int's range of value is -2,147,483,648 to 2,147,483,647. If our multiplication of flags
+            exceeded the range of values allowed, it will overflow our total_cost. We need to find a number of flags
+            that when multiplied by 900 will exceed 2,147,483,647, and when calculating for the new account balance will
+            give us a positive number. The lowest number we can use is 2386095.
+            <br><br>
+            An overflow in our total cost causes a negative value, and when the program calculates our new account
+            balance, our starting balance minus a negative number will give us a positive value.
+            <br><br>
+            <img src="../../../images/genskill_img/flag_shop.png" alt="Terminal window" style="max-width: 100%;"
+                onclick="enlargeImg()" id="img1" />
+            </p>
+            <hr>
+        </main>
+        <footer>
+
+            <div class="social-icons">
+                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+                        class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>Copyright &copy; 2023 Steven Song</p>
+        </footer>
+    </div>
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
