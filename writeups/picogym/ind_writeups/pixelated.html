@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixelated</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../../index.html">/Home</a>
+                <a href="../../../about.html">/About</a>
+                <a href="../../../projects.html">/Projects</a>
+                <a href="../../../writeups.html">/Writeups</a>
+            </nav>
+        </header>
+
+        <main>
+            <h2>Pixelated</h2>
+            <hr>
+            <p>
+                <b><u>Description:</u></b> I have these 2 images, can you make a flag out of them? scrambled1.png
+                scrambled2.png
+                <br><br>
+                <b><u>Writeup:</u></b> Both png files seems to be static.
+                <br><br>
+                <img src="../../../images/genskill_img/pixelated.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img1')" id="img1" />
+                <br><br>
+                Open stegsolve with one of two scrambled images. Use the image combiner to combine both scrambled
+                images, shifting through the planes, we are given the falg in the ADD plane.
+                <br><br>
+                <img src="../../../images/genskill_img/pixelated1.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img2')" id="img2" />
+            </p>
+            <hr>
+        </main>
+        <footer>
+
+            <div class="social-icons">
+                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+                        class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>Copyright &copy; 2023 Steven Song</p>
+        </footer>
+    </div>
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
