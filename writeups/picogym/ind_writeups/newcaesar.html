@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Caesar</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../../index.html">/Home</a>
+                <a href="../../../about.html">/About</a>
+                <a href="../../../projects.html">/Projects</a>
+                <a href="../../../writeups.html">/Writeups</a>
+            </nav>
+        </header>
+
+        <main>
+            <h2>New Caesar</h2>
+            <hr>
+            <p>
+                <b><u>Description:</u></b> We found a brand new type of encryption, can you break the secret code? (Wrap
+                with picoCTF{}) mlnklfnknljflfjljnjijjmmjkmljnjhmhjgjnjjjmmkjjmijhmkjhjpmkmkmljkjijnjpmhmjjgjj
+                new_caesar.py
+                <br><br>
+                <b><u>Writeup:</u></b> Examining the Pyhon module, notice the code does the following:
+            <ol>
+                <li>The LOWERCASE_OFFSET variable is assigned the Unicode code point of the lowercase letter 'a'.</li>
+                <li>The ALPHABET variable is assigned the first 16 lowercase letters of the English alphabet.</li>
+                <li>The b16_encode function takes a plaintext string plain as input and encodes it using a Base16-like
+                    encoding. Each character in the plaintext is converted to its 8-bit binary representation, and the
+                    first four and last four bits of the binary representation are converted to their corresponding
+                    character in ALPHABET. The resulting encoded string is returned.</li>
+                <li>The shift function takes a character c and a key character k as input and performs a simple Caesar
+                    cipher-like shift operation. The character c is shifted by the numeric value of k (using the
+                    lowercase offset) modulo the length of ALPHABET. The shifted character is returned.</li>
+                <li>The flag variable represents the plaintext that is to be encrypted</li>
+                <li>The key variable represents the encryption key. The code includes assertions to ensure that all
+                    characters in key are present in ALPHABET, and that key has a length of 1.</li>
+                <li>The b16 variable is assigned the result of encoding the flag using the b16_encode function.</li>
+                <li>The enc variable is an empty string that will store the encrypted result.</li>
+                <li>A loop is used to iterate over each character, c, in the b16 string. The loop also uses the
+                    enumerate function to get the index i of the current character.</li>
+                <li>Within the loop, the shift function is called with the current character c and the corresponding key
+                    character key[i % len(key)]. The % operator is used to cyclically repeat the key character when the
+                    length of key is less than the length of b16.</li>
+                <li>The shifted character is concatenated to the enc string.</li>
+                <li>After the loop completes, the enc string contains the encrypted result.</li>
+            </ol>
+            Knowing how the code encodes data, we can decode our given string by preforming the reverse operations of
+            the encoding algorithm. The code below includes a reverse shift function that will shift the character in
+            the opposite direction. Additionally, we convert the base16 encode function to a decode function which will
+            convert the encoded characters back. Finally, we iterate over the available alphabetic values to find the
+            key.
+            <pre>
+                <code>
+NEW CAESAR DECODE:
+
+import string
+
+LOWERCASE_OFFSET = ord("a")
+ALPHABET = string.ascii_lowercase[:16]
+
+def reverse_shift(c, k):
+    t1 = ord(c) - LOWERCASE_OFFSET
+    t2 = ord(k) - LOWERCASE_OFFSET
+    return ALPHABET[(t1 - t2) % len(ALPHABET)]
+
+def b16_decode(enc):
+    plain = ""
+    for i in range(0, len(enc), 2):
+        binary = "{0:04b}{1:04b}".format(ALPHABET.index(enc[i]), ALPHABET.index(enc[i + 1]))
+        plain += chr(int(binary, 2))
+    return plain
+
+enc = "mlnklfnknljflfjljnjijjmmjkmljnjhmhjgjnjjjmmkjjmijhmkjhjpmkmkmljkjijnjpmhmjjgjj"
+key = ""
+
+for c in ALPHABET:
+    decoded_text = ""
+    for enc_char in enc:
+        decoded_char = reverse_shift(enc_char, c)
+        decoded_text += decoded_char
+
+    b16_decoded = b16_decode(decoded_text)
+    if all(char in string.printable for char in b16_decoded):
+        key = c
+        break
+
+print("Key:", key)
+print("Decoded flag:", "picoCTF{"+b16_decode(decoded_text)+"}")
+                </code>
+            </pre>
+            </p>
+            <hr>
+        </main>
+        <footer>
+
+            <div class="social-icons">
+                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+                        class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>Copyright &copy; 2023 Steven Song</p>
+        </footer>
+    </div>
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
