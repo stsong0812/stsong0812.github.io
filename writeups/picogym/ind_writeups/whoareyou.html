@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Who Are You?</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../../index.html">/Home</a>
+                <a href="../../../about.html">/About</a>
+                <a href="../../../projects.html">/Projects</a>
+                <a href="../../../writeups.html">/Writeups</a>
+            </nav>
+        </header>
+
+        <main>
+            <h2>Who are you?</h2>
+            <hr>
+            <p>
+                <b><u>Description:</u></b> Let me in. Let me iiiiiiinnnnnnnnnnnnnnnnnnnn
+                http://mercury.picoctf.net:39114/
+                <br><br>
+                <b><u>Writeup:</u></b> The website displays a message that states only PicoBrowser users are allowed on
+                the site. Intercept the website through Burp and send the request to the repeater.
+                <br><br>
+                Change the User-Agent field to "PicoBrowser" and send the new request. In our response, the site now
+                displays the message "I don't trust users visiting from another site."
+                <br><br>
+                <img src="../../../images/genskill_img/whoareyou.png" alt="Terminal window" style="max-width: 100%;" onclick="toggleImgSize('img1')" id="img1">
+                <br><br>
+                This time add a Referer header
+                with the same value as the host website to change what host is making the request.
+                <br><br>
+                <img src="../../../images/genskill_img/whoareyou1.png" alt="Terminal window" style="max-width: 100%;" onclick="toggleImgSize('img2')" id="img2">
+                <br><br>
+                Our next message states, "Sorry, this site only worked in 2018." Add the Date header along with a date
+                that contains the year 2018. Sending our new request, the reponse now states "I don't trust users who
+                can be tracked." 
+                <br><br>
+                <img src="../../../images/genskill_img/whoareyou2.png" alt="Terminal window" style="max-width: 100%;" onclick="toggleImgSize('img3')" id="img3">
+                <br><br>
+                This requires us to include the DNT header to our request, which determines whether or
+                not the user will tracked by websites or not.
+                <br><br>
+                <img src="../../../images/genskill_img/whoareyou3.png" alt="Terminal window" style="max-width: 100%;" onclick="toggleImgSize('img4')" id="img4">
+                <br><br>
+                This next message requires that our request comes from Sweden. Adding the "X-Forwarded-For" header
+                alters where our request comes from in the form of an IP address. Looking up the range for Swedish IP addresses, we
+                can take any random IP and use it as our X-Forwarded-For value.
+                <br><br>
+                <img src="../../../images/genskill_img/whoareyou4.webp" alt="Terminal window" style="max-width: 100%;" onclick="toggleImgSize('img5')" id="img5">
+                <br><br>
+                Our last message states, "You're in Sweden but you don't speak Swedish?" Requiring us to change the
+                "Accept-Language" field to the Swedish language code in HTTP's syntax.
+                <br><br>
+                <img src="../../../images/genskill_img/whoareyou5.png" alt="Terminal window" style="max-width: 100%;" onclick="toggleImgSize('img6')" id="img6">
+                <br><br>
+            </p>
+            <hr>
+        </main>
+        <footer>
+
+            <div class="social-icons">
+                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+                        class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>Copyright &copy; 2023 Steven Song</p>
+        </footer>
+    </div>
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
