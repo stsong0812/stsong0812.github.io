@@ -37,10 +37,10 @@
                 <li>If total cost is less than or equal to account balance, new account balance equals account balance -
                     total cost (lines 41, 42)</li>
             </ul>
-            In C, a 32-bit int's range of value is -2,147,483,648 to 2,147,483,647. If our multiplication of flags
+            In C, a 32-bit int's range is -2,147,483,648 to 2,147,483,647. If our multiplication of flags
             exceeded the range of values allowed, it will overflow our total_cost. We need to find a number of flags
             that when multiplied by 900 will exceed 2,147,483,647, and when calculating for the new account balance will
-            give us a positive number. The lowest number we can use is 2386095.
+            give us a positive number.
             <br><br>
             An overflow in our total cost causes a negative value, and when the program calculates our new account
             balance, our starting balance minus a negative number will give us a positive value.

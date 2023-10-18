@@ -34,23 +34,22 @@
                 your co-workers see your amazing shell interface, just tell them: That's Special (TM) Start your
                 instance to see connection details.
                 <br><br>
-                <b><u>Writeup:</u></b> Upon launching the instance, connecting to the server, and attempting to try
+                <b><u>Writeup:</u></b> Upon connecting to the server, and attempting to try some
                 standard commands, notice...
             <ul>
                 <li>Every first letter is capitalized ( e.g. clear = Clear)</li>
                 <li>Every word in our command is auto corrected ( e.g. cd = Ad)</li>
             </ul>
-            We need to utilize commands that are not executed as our first statement, as it's first letter will be
-            capitalized. Additionally, our command must be a word, otherwise it will get auto corrected.
+            We need to utilize commands that are not executed as our first statement, as their first letter will be
+            capitalized. Additionally, our command must be a recognized word to avoid auto-correction.
             <br><br>
-            Using the pipe ("|") would help us achieve these goals.Our first command preceding the pipe can be anything,
-            but our second command should be a find command. We can use the find . command to search through our working
-            directory. Here we see the flag.txt file located in the /blarch directory.
-            <br><br>
-            Using the same method, this time cat the flag.txt file.
+            Using the pipe ("|") operator, we can bypass these filters. The first command before the pipe can be
+            arbitrary, but our second command can be a 'find' command. We can use 'find .' to search through our
+            current working directory. In this search, we identify the 'flag.txt' file located in the '/blargh'
+            directory. Following the same method, this time employ 'cat' to access the contents of the 'flag.txt' file.
             <br><br>
             <img src="../../../images/genskill_img/special.png" alt="Terminal window" style="max-width: 100%;"
-            onclick="toggleImgSize('img1')" id="img1" />
+                onclick="toggleImgSize('img1')" id="img1" />
             </p>
             <hr>
         </main>

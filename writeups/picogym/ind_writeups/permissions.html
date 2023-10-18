@@ -28,12 +28,10 @@
             <hr>
             <p>
                 <b><u>Description:</u></b> Can you read files in the root file? Additional details will be available
-                after
-                launching your challenge instance.
+                after launching your challenge instance.
                 <br><br>
-                <b><u>Writeup:</u></b> List possible commands with sudo -l. We
-                see that we have access to vi (vim), vim is the default editor that comes with UNIX operating
-                systems. We can use vim to execute commands through its command mode.
+                <b><u>Writeup:</u></b> List possible commands we can run as picoplayer with sudo -l. We
+                see that we have access to vim. We can use vim to execute commands through its command mode.
                 <br><br>
                 Open vim with sudo. To run commands through vim
                 preface each command with ":!". Execute :! ls -a /root to list all files, including hidden files,

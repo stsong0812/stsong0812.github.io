@@ -32,16 +32,15 @@
         all possible passwords based on the password conventions we've seen so far.
         <br><br>
         <b><u>Writeup:</u></b> The challenge provides us with a password checking program, the encrypted flag,
-        the hash in binary, and a dictionary of all possible passwords.
+        the correct password hash, and a dictionary of all possible passwords.
         <br><br>
-        Examining the Python program, it looks like we can use the already pre-existing functions to obtain the flag.
-        Open the dictionary file in read mode and iterate through the lines of the file, stripping each line and passing
-        it through the level_5_pw_checker function.
+        Upon inspecting the Python program, it appears that we can leverage the existing functions to retrieve the
+        flag. By opening the dictionary file in read mode, we can iterate through its lines, stripping each one and
+        passing it through the function level_5_pw_checker.
         <br><br>
-        Alter the level_5_pw_checker function to take in new entries from the dictionary, additionally removing any
-        unused lines.
+        Modify the level_5_pw_checker function to accommodate new entries from the dictionary, removing the user input
+        and any other unused lines.
         <br><br>
-        <b><u>Solution:</u></b>
       <pre>
           <code class="language-python">
 import hashlib

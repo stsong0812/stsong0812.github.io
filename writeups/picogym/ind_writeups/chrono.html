@@ -28,23 +28,18 @@
             <hr>
             <p>
                 <b><u>Description:</u></b> How to automate tasks to run at intervals on linux servers? Additional
-                details
-                will be available after launching your challenge instance.
+                details will be available after launching your challenge instance.
                 <br><br>
-                <b><u>Writeup:</u></b> Upon launching the challenge instance, we are provided with the server, port,
-                username, and password for an assh connection.
-                <br><br>
-                SSH connection syntax goes as follows, (username)@(server) and optionally -p (port). Enter the given
-                information in this order. According to the description, we are looking for an automated task on the
-                server.
+                <b><u>Writeup:</u></b> Upon initiating the challenge instance, we are provided with the details for an
+                SSH connection. Establish an ssh connection to the challenge (username)@(server) -p.
                 <br><br>
                 To find the list of automated commands on a given system, we must locate the
-                'crontab' file. This file is located in the 'etc' directory, the crontab file contains a list of
-                commands that are executed on a regular schedule. Concatenating the command gives us our flag.
+                'crontab' file. This contains a list of commands that are executed on a regular schedule and is located
+                in the /etc directory. Concatenating the file gives us the flag.
                 <br><br>
-                <img src="../../../images/genskill_img/chrono.png" alt="Terminal window" style="max-width: 100%;" onclick="toggleImgSize('img1')" id="img1"
-            </p>
-            <hr>
+                <img src="../../../images/genskill_img/chrono.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img1')" id="img1" </p>
+                <hr>
         </main>
         <footer>
 
