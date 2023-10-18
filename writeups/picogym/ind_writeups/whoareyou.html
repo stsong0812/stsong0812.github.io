@@ -31,7 +31,7 @@
                 http://mercury.picoctf.net:39114/
                 <br><br>
                 <b><u>Writeup:</u></b> The website displays a message that states only PicoBrowser users are allowed on
-                the site. Intercept the website through Burp and send the request to the repeater.
+                the site. Intercept the connection through Burpsuite and send the intercepted request to the repeater.
                 <br><br>
                 Change the User-Agent field to "PicoBrowser" and send the new request. In our response, the site now
                 displays the message "I don't trust users visiting from another site."
@@ -67,7 +67,7 @@
                     onclick="toggleImgSize('img5')" id="img5">
                 <br><br>
                 Our last message states, "You're in Sweden but you don't speak Swedish?" Requiring us to change the
-                "Accept-Language" field to the Swedish language code in HTTP's syntax.
+                "Accept-Language" field to the Swedish language code used in HTTP requests.
                 <br><br>
                 <img src="../../../images/genskill_img/whoareyou5.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img6')" id="img6">
