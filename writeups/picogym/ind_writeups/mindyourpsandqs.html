@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mind Your P's and Q's</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../../index.html">/Home</a>
+                <a href="../../../about.html">/About</a>
+                <a href="../../../projects.html">/Projects</a>
+                <a href="../../../writeups.html">/Writeups</a>
+            </nav>
+        </header>
+
+        <main>
+            <h2>Mind your P's and Q's</h2>
+            <hr>
+            <p>
+                <b><u>Description:</u></b> In RSA, a small e value can be problematic, but what about N? Can you decrypt
+                this? values
+                <br><br>
+                <b><u>Writeup:</u></b> We are told to decrypt the RSA given values, c, n, and e. The RSA alogrithm uses
+                a public and private key, making it an asymmetric cryptographic algorithm.
+                <br><br>
+                <img src="../../../images/genskill_img/mindyourpsandqs.png" alt="Terminal window"
+                    style="max-width: 100%;" onclick="toggleImgSize('img1')" id="img1" />
+                <br><br>
+                RSA Encryption:
+            <ol>
+                <li>Choose two large distinct prime numbers p and q</li>
+                <li>Calculate n = p * q (n is called the modulus)</li>
+                <li>Calculate oiler's totient φ(n), where φ(n) = (p - 1) * (q - 1)</li>
+                <li>Select a public exponent e, such that e is co-prime and 1 < e < φ(n)</li>
+                <li>The public key is (n,e)</li>
+                <li>Calculate the private exponent, d, which is the modular multiplicative inverse of e modulo φ(n). (d
+                    is the value that satisfies the equation: (d * e) mod φ(n) = 1)</li>
+            </ol>
+            RSA Decryption:
+            <ol>
+                <li>Use private key (d, n)</li>
+                <li>Compute the plaintext message by applying the decryption formula: plaintext = (c^d) mod n</li>
+            </ol>
+            Using <a href="https://www.alpertron.com.ar/ECM.HTM">alpertron.com</a>, we can calculate our p and q values.
+            Attempting to manually calculate p and q would take far too long. Using the Python module below, we can
+            calculate d, the decrypted RSA key with p, q, e, and c.
+            <pre>
+                <code>
+RSADECRYPT.PY:
+
+class ModularInverseError(Exception):
+    pass
+
+def extended_gcd(a, b):
+    """
+    extended Euclidean Algorithm to find the greatest common divisor (gcd) of two numbers a and b,
+    along with the coefficients x and y that satisfy the equation ax + by = gcd(a, b).
+    """
+    if a == 0:
+        return b, 0, 1
+    else:
+        g, y, x = extended_gcd(b % a, a)
+        return g, x - (b // a) * y, y
+
+def modular_inverse(a, m):
+    """
+    computes the modular inverse of a modulo m using the Extended Euclidean Algorithm.
+    """
+    g, x, y = extended_gcd(a, m)
+    if g != 1:
+        raise ModularInverseError("Modular inverse does not exist")
+    else:
+        return x % m
+
+def square_and_multiply(base, exponent, modulus):
+    """
+    performs modular exponentiation using the square-and-multiply algorithm.
+    """
+    result = 1
+    base = base % modulus
+
+    while exponent > 0:
+        if exponent % 2 == 1:
+            result = (result * base) % modulus
+        exponent = exponent // 2
+        base = (base * base) % modulus
+
+    return result
+
+# prompt the user to enter the values
+p = int(input("Enter the value of p: "))
+q = int(input("Enter the value of q: "))
+e = int(input("Enter the value of e: "))
+ciphertext = int(input("Enter the value of the ciphertext c: "))
+
+# calculate necessary values
+n = p * q
+totient = (p - 1) * (q - 1)
+d = modular_inverse(e, totient)
+
+# decrypt the ciphertext
+plaintext = square_and_multiply(ciphertext, d, n)
+
+# convert the decrypted plaintext to the original message
+message = bytearray.fromhex(hex(plaintext)[2:]).decode()
+
+# print the decrypted message
+print("Decrypted message:", message)
+                </code>
+            </pre>
+            </p>
+            <hr>
+        </main>
+        <footer>
+
+            <div class="social-icons">
+                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+                        class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>Copyright &copy; 2023 Steven Song</p>
+        </footer>
+    </div>
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
