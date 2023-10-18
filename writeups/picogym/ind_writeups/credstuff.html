@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Credstuff</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../../index.html">/Home</a>
+                <a href="../../../about.html">/About</a>
+                <a href="../../../projects.html">/Projects</a>
+                <a href="../../../writeups.html">/Writeups</a>
+            </nav>
+        </header>
+
+        <main>
+            <h2>credstuff</h2>
+            <hr>
+            <p>
+                <b><u>Description:</u></b> We found a leak of a blackmarket website's login credentials. Can you find
+                the password of the user cultiris and successfully decrypt it? Download the leak here.The first user in
+                usernames.txt corresponds to the first password in passwords.txt. The second user corresponds to the
+                second password, and so on.
+                <br><br>
+                <b><u>Writeup:</u></b> Download the tar file containing our leaks, we can extract the tar file with the
+                command, tar -xf leak.tar. In the unpacked leak directory we are given two text files, one containing
+                usernames and another containing passwords.
+                <br><br>
+                <img src="../../../images/genskill_img/credstuff.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img1')" id="img1">
+                <br><br>
+                The challenge description tells us to find the password of the user "cultiris" knowing that each line in
+                the username file numerically corresponds to a line the in password field. Concatenating our usernames
+                text file, it is far too long to manually go through. Instead we can use the grep command with the -n
+                flag for line number to print the username and the line number. Execute grep -n cultiris usernames.txt
+                <br><br>
+                <img src="../../../images/genskill_img/credstuff1.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img2')" id="img2">
+                <br><br>
+                Now to find the corresponding password we can use sed with the -n flag to search for an entry using its
+                line number. Execute the command sed -n '378p' passwords.txt.
+                <br><br>
+                <img src="../../../images/genskill_img/credstuff2.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img3')" id="img3">
+                <br><br>
+                Here we get our encrypted flag, it looks like it has been encrypted through a caesar/rotation cipher.
+                Knowing the first 7 letters should be picoCTF, we can easily figure out the shift of the cipher. The
+                first letter in our encrypted string is "c", we know our decrypted string will start with "p".
+                Therefore, the shift is 13, as "c" is the 3rd letter in the alphabet and "p" is the 16th letter. We can
+                use the tr command to decrypt the string. Echo the string to the tr command, tr "a-zA-Z" "n-za-mN-ZA-M".
+                This gives us our decrypted flag.
+                <br><br>
+                <img src="../../../images/genskill_img/credstuff3.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img4')" id="img4">
+                <hr>
+            </p>
+        </main>
+        <footer>
+
+            <div class="social-icons">
+                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+                        class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>Copyright &copy; 2023 Steven Song</p>
+        </footer>
+    </div>
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
