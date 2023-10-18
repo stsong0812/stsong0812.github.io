@@ -185,8 +185,3 @@ a:hover {
 .card p {
   margin: 0;
 }
-
-.enlarged {
-  transform: scale(1.5);
-  transition: transform 0.25s ease;
-}

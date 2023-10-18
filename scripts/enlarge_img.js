@@ -8,7 +8,7 @@ function toggleImgSize(imgId) {
             img.style.transition = "transform 0.25s ease";
             img.classList.remove('enlarged');
         } else {
-            img.style.transform = "scale(1.5)";
+            img.style.transform = "scale(2.5)";
             img.style.transition = "transform 0.25s ease";
             img.classList.add('enlarged');
         }
