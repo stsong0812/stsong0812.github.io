@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>More SQLi</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../../index.html">/Home</a>
+                <a href="../../../about.html">/About</a>
+                <a href="../../../projects.html">/Projects</a>
+                <a href="../../../writeups.html">/Writeups</a>
+            </nav>
+        </header>
+
+        <main>
+            <h2>More SQLi</h2>
+            <hr>
+            <p>
+                <b><u>Description:</u></b> Can you find the flag on this website. Additional details will be available
+                after launching your challenge instance.
+                <br><br>
+                The website takes us to a login page, attempting some
+                default credentials shows us the SQL query being made with our input.
+                <br><br>
+                <img src="../../../images/genskill_img/moresqli.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img1')" id="img1" />
+                <br><br>
+                Seeing how the query searches for the password first, we want a payload in the password field that
+                returns a true value. Generally,
+                returning a true for an input field in SQL injection will bypass authentication checks helping us gain
+                unauthorized access. As long as our password fits this need, we can append any end-of-line or comment
+                operator to ignore the rest of the query.
+            <pre>
+                    <code>
+--PAYLOAD:
+username: (anything)
+password: ' or 1=1;
+
+--RESULTING QUERY:
+SELECT id FROM users WHERE password = '' OR 1=1;' AND username = 'admin'
+                    </code>
+                </pre>
+            Observe the initial apostrophe (') closing the password string value, moving the query onto the "or 1=1'
+            statement. This statement, returning a true, bypasses the password check and lastly, the semi-colon (;)
+            terminates the line, causing the query to ignore the rest.
+            <br><br>
+            Entering the payload leads us to a table with another input field. Knowing the site utilizes an SQLite
+            database, we can query the sqlite_master table. which stores all table, view, index, and trigger information
+            for the database.
+            <pre>
+                <code>
+--PAYLOAD:
+' union select sql, 1, 1 sqlite_master;
+                </code>
+            </pre>
+            The apostrophe closes the existing string, "union select sql" performs a UNION operation, combining the
+            results of the original query with the results of the injected query. "1, 1" acting as a placeholder, are
+            used in the injected query to match the column count of the original query. Lastly, "sqlite_master" is the
+            table we want to query, making sure to end the payload with a semi-colon.
+            <br><br>
+            <img src="../../../images/genskill_img/moresqli1.png" alt="Terminal window" style="max-width: 100%;"
+                onclick="toggleImgSize('img2')" id="img2" />
+            <br><br>    
+            In the sqlite_master table we see the mention of flag. It looks like the flag is present in the more_table
+            table. Again, we can query this table using the payload below, giving us our flag.
+            <pre>
+                <code>
+--PAYLOAD:
+' union select flag, 1, 1 from more_table;
+                </code>
+            </pre>
+            <img src="../../../images/genskill_img/moresqli2.png" alt="Terminal window" style="max-width: 100%;"
+                onclick="toggleImgSize('img3')" id="img3" />
+            </p>
+            <hr>
+        </main>
+        <footer>
+
+            <div class="social-icons">
+                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+                        class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>Copyright &copy; 2023 Steven Song</p>
+        </footer>
+    </div>
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
