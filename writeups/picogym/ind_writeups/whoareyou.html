@@ -36,35 +36,41 @@
                 Change the User-Agent field to "PicoBrowser" and send the new request. In our response, the site now
                 displays the message "I don't trust users visiting from another site."
                 <br><br>
-                <img src="../../../images/genskill_img/whoareyou.png" alt="Terminal window" style="max-width: 100%;" onclick="toggleImgSize('img1')" id="img1">
+                <img src="../../../images/genskill_img/whoareyou.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img1')" id="img1">
                 <br><br>
                 This time add a Referer header
                 with the same value as the host website to change what host is making the request.
                 <br><br>
-                <img src="../../../images/genskill_img/whoareyou1.png" alt="Terminal window" style="max-width: 100%;" onclick="toggleImgSize('img2')" id="img2">
+                <img src="../../../images/genskill_img/whoareyou1.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img2')" id="img2">
                 <br><br>
                 Our next message states, "Sorry, this site only worked in 2018." Add the Date header along with a date
                 that contains the year 2018. Sending our new request, the reponse now states "I don't trust users who
-                can be tracked." 
+                can be tracked."
                 <br><br>
-                <img src="../../../images/genskill_img/whoareyou2.png" alt="Terminal window" style="max-width: 100%;" onclick="toggleImgSize('img3')" id="img3">
+                <img src="../../../images/genskill_img/whoareyou2.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img3')" id="img3">
                 <br><br>
                 This requires us to include the DNT header to our request, which determines whether or
                 not the user will tracked by websites or not.
                 <br><br>
-                <img src="../../../images/genskill_img/whoareyou3.png" alt="Terminal window" style="max-width: 100%;" onclick="toggleImgSize('img4')" id="img4">
+                <img src="../../../images/genskill_img/whoareyou3.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img4')" id="img4">
                 <br><br>
                 This next message requires that our request comes from Sweden. Adding the "X-Forwarded-For" header
-                alters where our request comes from in the form of an IP address. Looking up the range for Swedish IP addresses, we
+                alters where our request comes from in the form of an IP address. Looking up the range for Swedish IP
+                addresses, we
                 can take any random IP and use it as our X-Forwarded-For value.
                 <br><br>
-                <img src="../../../images/genskill_img/whoareyou4.webp" alt="Terminal window" style="max-width: 100%;" onclick="toggleImgSize('img5')" id="img5">
+                <img src="../../../images/genskill_img/whoareyou4.webp" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img5')" id="img5">
                 <br><br>
                 Our last message states, "You're in Sweden but you don't speak Swedish?" Requiring us to change the
                 "Accept-Language" field to the Swedish language code in HTTP's syntax.
                 <br><br>
-                <img src="../../../images/genskill_img/whoareyou5.png" alt="Terminal window" style="max-width: 100%;" onclick="toggleImgSize('img6')" id="img6">
-                <br><br>
+                <img src="../../../images/genskill_img/whoareyou5.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img6')" id="img6">
             </p>
             <hr>
         </main>

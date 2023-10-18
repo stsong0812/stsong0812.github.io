@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Permissions</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../../index.html">/Home</a>
+                <a href="../../../about.html">/About</a>
+                <a href="../../../projects.html">/Projects</a>
+                <a href="../../../writeups.html">/Writeups</a>
+            </nav>
+        </header>
+
+        <main>
+            <h2>Permissions</h2>
+            <hr>
+            <p>
+                <b><u>Description:</u></b> Help us test the form by submiting the username as test and password as test!
+                Additional details will be available after launching your challenge instance.
+                <br><br>
+                <b><u>Writeup:</u></b> The message below mentions redirection, try going back to the login page. Log in
+                with the same credentials once more and observe the redirection in the search bar. It looks like we are
+                initially directed to a different URL before being redirected to the entry page.
+                <br><br>
+                <img src="../../../images/genskill_img/findme.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img1')" id="img1">
+                <br><br>
+                Open Burpsuite, we want to capture the request after we log in to further examine the redirection.
+                Observe the GET header which includes the directory we are directed to. The header seems to contain a base64 encoded
+                string, we can decode this string through the command line. Type "echo "base64 string" | base64
+                --decode". We get one half of the flag.
+                <br><br>
+                <img src="../../../images/genskill_img/findme1.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img2')" id="img2">
+                <br><br>
+                Forward the request once more, and again, we are given another base64 encoded string in the GET header.
+                Decode this base64 string for the flag.
+                <br><br>
+                <img src="../../../images/genskill_img/findme2.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img3')" id="img3">
+            </p>
+            <hr>
+        </main>
+        <footer>
+
+            <div class="social-icons">
+                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+                        class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>Copyright &copy; 2023 Steven Song</p>
+        </footer>
+    </div>
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
