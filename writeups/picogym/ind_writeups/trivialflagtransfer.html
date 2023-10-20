@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trivial File Transfer Protocol</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../../index.html">/Home</a>
+                <a href="../../../about.html">/About</a>
+                <a href="../../../projects.html">/Projects</a>
+                <a href="../../../writeups.html">/Writeups</a>
+            </nav>
+        </header>
+
+        <main>
+            <h2>Trivial File Transfer Protocol</h2>
+            <hr>
+            <p>
+                <b><u>Description:</u></b> Figure out how they moved the flag.
+                <br><br>
+                <b><u>Writeup:</u></b> Open the file in Wireshark. The primary protocol being used in the packet
+                transfer is TFTP, a simple protocol that provides basic file transfer function with no user
+                authentication. We can export the objects used in the TFTP transfers under File > Export Objects > TFTP,
+                from there we can save the files to a directory.
+                <br><br>
+                <img src="../../../images/genskill_img/tftp.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img1')" id="img1">
+                <br><br>
+                Upon concatenating the two text files, instructions.txt and plan, it looks like the files are ROT
+                encrypted. We can use the following command to print the decrypted contents of the files.
+                <br><br>
+                <img src="../../../images/genskill_img/tftp1.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img2')" id="img2">
+                <br><br>
+                The decrypted contents of text files tells us that the flag is hidden within the photos using a program
+                with "DUEDILIGENCE". Looking at the contents of program.deb, we see it is a package for steghide.
+                <br><br>
+                <img src="../../../images/genskill_img/tftp2.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img3')" id="img3">
+                <br><br>
+                Steghide is a steganography program that is able to hide data in various kinds of image and audio files.
+                We can install it with sudo apt install steghide if it is not already on your system. Looking at the
+                steghide man page, we can see how to extract information from files.
+                <br><br>
+                <img src="../../../images/genskill_img/tftp3.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img4')" id="img4">
+                <br><br>
+                Using the commmand steghide extract -sf picture1.bmp -p DUEDILIGENCE we can extract the message from
+                each picture file if it exists. The flag was in picture3.bmp.
+                <br><br>
+                <img src="../../../images/genskill_img/tftp4.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img5')" id="img5">
+                <hr>
+            </p>
+        </main>
+        <footer>
+
+            <div class="social-icons">
+                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+                        class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>Copyright &copy; 2023 Steven Song</p>
+        </footer>
+    </div>
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
