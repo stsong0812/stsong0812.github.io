@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chrono</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../../index.html">/Home</a>
+                <a href="../../../about.html">/About</a>
+                <a href="../../../projects.html">/Projects</a>
+                <a href="../../../writeups.html">/Writeups</a>
+            </nav>
+        </header>
+
+        <main>
+            <h2>chrono</h2>
+            <hr>
+            <p>
+                <b><u>Description:</u></b> Can you find the flag? shark2.pcapng.
+                <br><br>
+                <b><u>Writeup:</u></b> Open the provided packet capture file in Wireshark. A quick scroll through the
+                packet captures shows mostly HTTP and DNS protocols being utilized.
+                <br><br>
+                <img src="../../../images/genskill_img/wiresharktwo.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img1')" id="img1">
+                <br><br>
+                Filtering for "http" in the search bar and following the packet's TCP stream, we see what seems to be a
+                flag. Attempting to enter this flag doesn't work.
+                <br><br>
+                <img src="../../../images/genskill_img/wiresharktwo1.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img2')" id="img2">
+                <br><br>
+                Looking at the stream before this one, we see a mention of "Red Herring" in the body of the packet.
+                Additionally, there seems to be many more packets with bodies that contain a fake picoCTF flag.
+                <br><br>
+                <img src="../../../images/genskill_img/wiresharktwo2.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img3')" id="img3">
+                <br><br>
+                Now, filtering for only DNS packets shows some interesting information. Looking at the packet
+                information, there seems to be short base64 encoded strings before the mention of the
+                redshrimpandherring.com domain.
+                <br><br>
+                <img src="../../../images/genskill_img/wiresharktwo3.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img4')" id="img4">
+                <br><br>
+                Lets try to decode them through tshark, Wireshark's command line utility as we are most likely going to
+                need to pipe multiple commands together. First use the command "tshark -r shark2.pcapng -Y 'dns' -T
+                fields -e dns.qry.name" to filter for the DNS query names.
+                <br><br>
+                <img src="../../../images/genskill_img/wiresharktwo4.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img5')" id="img5">
+                <br><br>
+                Now we want to remove the .reddshrimpandherring.com extension, we can do this using the sed command
+                which will edit our input stream. Pipe the command sed 's/.reddshrimpandherring.com.*$//' to remove any
+                instance of reddshrmpandherring.com along with anything that follows it.
+                <br><br>
+                <img src="../../../images/genskill_img/wiresharktwo5.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img6')" id="img6">
+                <br><br>
+                Now we have the plain base64 encoded strings but there seem to be duplicates. Pipe the uniq command to
+                only print out unique strings. Additionally, pipe the base64 -d command to decode each string.
+                <br><br>
+                <img src="../../../images/genskill_img/wiresharktwo6.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img7')" id="img7">
+                <br><br>
+                Our output seems to be jumbled but we see small fragments of he flag. It seems that not all of our
+                strings were base64 encoded. Looking back at our packet transfers, there are three different packet
+                destinations, 8.8.8.8, 192.168.38.104, and 18.217.1.57. This time, we can alter our initial tshark
+                filter out the different destinations ips to find which one returns our flag. Add && ip.dst == (ip
+                address) to our tshark filter.
+                <br><br>
+                <img src="../../../images/genskill_img/wiresharktwo7.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img8')" id="img8">
+                <hr>
+            </p>
+        </main>
+        <footer>
+
+            <div class="social-icons">
+                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+                        class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>Copyright &copy; 2023 Steven Song</p>
+        </footer>
+    </div>
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
