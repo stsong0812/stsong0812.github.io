@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tunn3l V1s1on</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../../index.html">/Home</a>
+                <a href="../../../about.html">/About</a>
+                <a href="../../../projects.html">/Projects</a>
+                <a href="../../../writeups.html">/Writeups</a>
+            </nav>
+        </header>
+
+        <main>
+            <h2>tunn3l v1s1on</h2>
+            <hr>
+            <p>
+                <b><u>Description:</u></b> Using exiftool to examine the file's metadata, we
+                see that the file has the bmp file extension. A bmp file is an uncompressed image format developed by
+                Microsoft for storing pixel data without loss of quality.
+                <br><br>
+                <img src="../../../images/genskill_img/tunn3lv1s1on.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img1')" id="img1">
+                <br><br>
+                Examine the hex dump of the file's header using xxd. We see hex values that spell out "bad", this is
+                why our file is corrupted.
+                <br><br>
+                <img src="../../../images/genskill_img/tunn3lv1s1on1.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img2')" id="img2">
+                <br><br>
+                Looking the file signature of a bmp file from Wikipedia, we are missing an offset where the bitmap data
+                can be found and the number of bytes in the DIB header.
+                <br><br>
+                <img src="../../../images/genskill_img/tunn3lv1s1on2.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img3')" id="img3">
+                <br><br>
+                Using hexedit, we can alter the data offset and DIB header bytes to their proper values. Change the
+                corrupted values to their proper values and save the file with ctrl + x.
+                <br><br>
+                <img src="../../../images/genskill_img/tunn3lv1s1on3.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img4')" id="img4">
+                <br><br>
+                Open our fixed bmp file. Our file is not corrupted anymore but it seems like we still don't have our
+                flag.\
+                <br><br>
+                <img src="../../../images/genskill_img/tunn3lv1s1on4.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img5')" id="img5">
+                <br><br>
+                The image looks oddly cut off, lets try altering the hex information for its size. At the moment, the
+                file size seems to be 1134 x 306. Convert these values into hex(0x46e x 0x132) and let see if we can
+                find these values in the hex dump.
+                <br><br>
+                <img src="../../../images/genskill_img/tunn3lv1s1on5.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img6')" id="img6">
+                <br><br>
+                We can see these numbers in the second row, but it looks like the values are in little endian. So the
+                displayed 6e40 should be flipped to look like 046e, same with 3201. Lets try changing our height through
+                hexedit as we know it is represented as 3201. We know the 01 represents the 001 in little endian, in big
+                endian it would be flipped to look like 10 which would be equivalent to 100. Lets change the value to 3
+                instead to increase the height to 300.
+                <br><br>
+                <img src="../../../images/genskill_img/tunn3lv1s1on6.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img7')" id="img7">
+                <br><br>
+                Open the file, this time, we can see the full flag.
+                <br><br>
+                <img src="../../../images/genskill_img/tunn3lv1s1on7.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img8')" id="img8">
+
+                <hr>
+            </p>
+        </main>
+        <footer>
+
+            <div class="social-icons">
+                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+                        class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>Copyright &copy; 2023 Steven Song</p>
+        </footer>
+    </div>
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
