@@ -27,19 +27,28 @@
             <h2>speeds and feeds</h2>
             <hr>
             <p>
-                <b><u>Description:</u></b> How to automate tasks to run at intervals on linux servers? Additional
-                details will be available after launching your challenge instance.
+                <b><u>Description:</u></b> There is something on my shop network running at nc mercury.picoctf.net
+                28067, but I can't tell what it is. Can you?
                 <br><br>
-                <b><u>Writeup:</u></b> Upon initiating the challenge instance, we are provided with the details for an
-                SSH connection. Establish an ssh connection to the challenge (username)@(server) -p.
+                <b><u>Writeup:</u></b> Upon executing the Netcat command, we see a mountain of what looks to be g-code.
+                G-code is the primary language used by computer numerical control (CNC) machines.
                 <br><br>
-                To find the list of automated commands on a given system, we must locate the
-                'crontab' file. This contains a list of commands that are executed on a regular schedule and is located
-                in the /etc directory. Concatenating the file gives us the flag.
+                <img src="../../../images/genskill_img/speedsandfeeds.png" alt="Terminal window"
+                    style="max-width: 100%;" onclick="toggleImgSize('img1')" id="img1">
                 <br><br>
-                <img src="../../../images/genskill_img/chrono.png" alt="Terminal window" style="max-width: 100%;"
-                    onclick="toggleImgSize('img1')" id="img1">
-                    <hr>
+                We can probably copy the output to a g-code compiler to see what it would look like when used through a
+                CNC machine. Execute the Netcat command again, this time, writing the output to a text file.
+                <br><br>
+                <img src="../../../images/genskill_img/speedsandfeeds1.png" alt="Terminal window"
+                    style="max-width: 100%;" onclick="toggleImgSize('img2')" id="img2">
+                <br><br>
+                Using this g-code compiler site, we can input our text file and see what our output would look like when
+                printed out. The output is our flag.
+                <br><br>
+                <img src="../../../images/genskill_img/speedsandfeeds2.png" alt="Terminal window"
+                    style="max-width: 100%;" onclick="toggleImgSize('img3')" id="img3">
+                <br><br>
+                <hr>
             </p>
         </main>
         <footer>
