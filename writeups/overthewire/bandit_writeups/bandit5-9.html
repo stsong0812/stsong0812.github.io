@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../styles.css">
+    <link rel="icon" href="../../../images/global_img/whitespy.png" type="image/x-icon" />
+    <title>OverTheWire Bandit</title>
+</head>
+
+<body>
+    <div class="header">
+        <div class="navigation">
+            <ul>
+                <li><a href="https://youtu.be/xvFZjo5PgG0">/Steven Song</a></li>
+            </ul>
+            <ul>
+                <li><a href="../../../index.html">/Home</a></li>
+                <li><a href="../../../about.html">/About</a></li>
+                <li><a href="../../../projects.html">/Projects</a></li>
+                <li><a href="../../../writeups.html">/Writeups</a></li>
+                <li><a href="../../../experience.html">/Experience</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>
+            <u> <b> OverTheWire: Bandit 5→9 </b> </u>
+        </h1>
+
+        <div>
+            <ul>
+                <h2>Bandit Level 5 → 6:</h2>
+                <p>
+                    <b>Level Goal:</b> The password for the next level is stored in a file somewhere under the inhere
+                    directory and has all of the following properties: human-readable, 1033 bytes in size, and not
+                    executable
+                    <br><br>
+                    <b>Writeup:</b> After traversing into the working directory, we are met with 20 directories with
+                    different files
+                    inside them. Upon using the “ll” command, we aren’t shown any useful information pertaining to the
+                    level.
+                    <br><br>
+                    <img src="../../../images/bandit_img/Bandit5-1.png" alt="Terminal window" class="center">
+                    <br>
+                    We need to use the find command, this command will let us locate a file using different flags
+                    that will act as a filter. Upon further research I found that we could search files by size using a
+                    -size flag.
+                    <br><br>
+                    In utilizing the command “find . -size 1033c”
+                <ul>
+                    <li>“.” to look inside current directory</li><br>
+                    <li>“-size” to search by size</li><br>
+                    <li>“1033” size to search by</li><br>
+                    <li>“c” type of unit, in this case, bytes</li><br>
+                </ul>
+                We are given the following output...
+                <br><br>
+                <img src="../../../images/bandit_img/Bandit5-2.png" alt="Terminal window" class="center">
+                <br>
+                From here, we can traverse into the maybehere07 folder and cat the file2 folder with the command “cat
+                ./.file2” which will give us the next password.
+                <br><br>
+                <img src="../../../images/bandit_img/Bandit5-2.png" alt="Terminal window" class="center">
+                </p>
+                <hr>
+
+                <h2>Bandit Level 6 → 7:</h2>
+                <p>
+                    <b>Level Goal:</b> The password for the next level is stored somewhere on the server and has all of
+                    the following properties: owned by user bandit7, owned by group bandit6, and 33 bytes in size
+                    <br><br>
+                    <b>Writeup:</b> Logging into the bandit6 level, we are not met with any working directory. Since the
+                    goal asks us to find a text file with certain properties, we can assume we need to use the find
+                    command.
+                    <br><br>
+                    <img src="../../../images/bandit_img/Bandit6-1.png" alt="Terminal window" class="center">
+                    <br>
+                    Similar to the last file, we can use the command “find / -user bandit7 –group bandit6 –size 33c”.
+                    This time, we are using the “/” flag to search through the entire system as we are not given a
+                    working directory. Additionally, we are using the user and group flags to specify what user and
+                    group the file is under.
+                    <br><br>
+                    <img src="../../../images/bandit_img/Bandit6-2.png" alt="Terminal window" class="center">
+                    <br><br>
+                    Upon entering the command we are shown a wave of results, mostly saying “Permission denied” except
+                    for one file which has the path below.
+                    <br><br>
+                    This will be our password file, we can cat the file entering the same path that we see, “cat
+                    /var/lib/dpkg/info/bandit7.password” which will then give you the password for the next level.
+                    <br><br>
+                    <img src="../../../images/bandit_img/Bandit6-3.png" alt="Terminal window" class="center">
+                </p>
+                <hr>
+
+                <h2>Bandit Level 7 → 8:</h2>
+                <p>
+                    <b>Level Goal:</b> The password for the next level is stored in the file data.txt next to the word
+                    millionth
+                    <br><br>
+                    <b>Writeup:</b> For this level, we are told the password is located in a file called “data.txt” next
+                    to the word “millionth”. Upon listing the items within our current directory, we are met with the
+                    data.txt file. In attempting to cat that file, you will be met with a barrage of words and strings,
+                    certainly too many to sort through by eye.
+                    <br><br>
+                    <img src="../../../images/bandit_img/Bandit7-1.png" alt="Terminal window" class="center">
+                    <br>
+                    This is where we will utilize the grep command. Grep (Global Regular Expression Print) is a
+                    command-line tool used to search for a string of characters in a specified file.
+                    <br><br>
+                    Using the command “grep millionth data.txt”, where millionth is the word we want to find and where
+                    data.txt is the file we wish to search, we are given the password to the next level.
+                    <br><br>
+                    <img src="../../../images/bandit_img/Bandit7-2.png" alt="Terminal window" class="center">
+                </p>
+                <hr>
+
+                <h2>Bandit Level 8 → 9:</h2>
+                <p>
+                    <b>Level Goal:</b> The password for the next level is stored in the file data.txt and is the only
+                    line of text that occurs only once
+                    <br><br>
+                    <b>Writeup:</b> This level asks us to find a unique line within the given text file. In attempting
+                    to cat the data.txt file given, you are again met with a wall of strings. This is where we will
+                    utilize the sort and uniq commands in order to find our target.
+                    <br><br>
+                    <img src="../../../images/bandit_img/Bandit8-1.png" alt="Terminal window" class="center">
+                    <br>
+                    Sort - Used to sort a file, arranging the records in a particular order.
+                    <br><br>
+                    Uniq - Command-line utility that reports or filters out the repeated lines in a file.
+                    <br><br>
+                    Combining these commands to locate our flag in the text file, we use “sort data.txt | uniq –u", the
+                    “|” (pipe) included within our command allows us to glue 2 commands together. The “-u” flag within
+                    the uniq command will sort and remove any duplicate strings within the text file.
+                    <br><br>
+                    Upon entering this command, we are given the password to the next level!
+                    <br><br>
+                    <img src="../../../images/bandit_img/Bandit3-2.png" alt="Terminal window" class="center">
+                </p>
+                <hr>
+
+                <h2>Bandit Level 9 → 10:</h2>
+                <p>
+                    <b>Level Goal:</b> The password for the next level is stored in the file data.txt in one of the few
+                    human-readable strings, preceded by several ‘=’ characters.
+                    <br><br>
+                    <b>Writeup:</b> Similar to the last level, level 9 asks us to locate the password among a few
+                    human-readable strings which is also preceded by several “=” characters. Again, concatenating the
+                    data file will get you nowhere.
+                    <br><br>
+                    <img src="../../../images/bandit_img/Bandit9-1.png" alt="Terminal window" class="center">
+                    <br>
+                    Like the last level, we will have to sort through the data.txt file. This time, we will utilize the
+                    strings command paired with the grep command. Your command should look similar to this, “strings
+                    data.txt | grep =”.
+                    <br><br>
+                    Upon entering the command, you are given the password for the next level.
+                    <br><br>
+                    <img src="../../../images/bandit_img/Bandit9-2.png" alt="Terminal window" class="center">
+                </p>
+                <hr>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="social_icons">
+        <ul>
+            <li>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank" z><img
+                        src="../../../images/icons_img/linkedin.png" alt="linkedin png">
+                    <a href="https://github.com/stsong0812" target="_blank"><img
+                            src="../../../images/icons_img/github.png" alt="github png">
+                        <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><img
+                                src="../../../images/icons_img/youtube.png" alt="youtube png">
+                            <a href="https://twitter.com/stsong0812" target="_blank"><img
+                                    src="../../../images/icons_img/twitter.png" alt="twitter png">
+            </li>
+        </ul>
+    </div>
+
+</body>
+
+</html>
