@@ -27,19 +27,57 @@
             <h2>ARMssembly 1</h2>
             <hr>
             <p>
-                <b><u>Description:</u></b> How to automate tasks to run at intervals on linux servers? Additional
-                details will be available after launching your challenge instance.
+                <b><u>Description:</u></b> For what argument does this program print `win` with variables 83, 0 and 3?
+                File: chall_1.S Flag format: picoCTF{XXXXXXXX} -> (hex, lowercase, no 0x, and 32 bits. ex. 5614267 would
+                be picoCTF{0055aabb})
                 <br><br>
-                <b><u>Writeup:</u></b> Upon initiating the challenge instance, we are provided with the details for an
-                SSH connection. Establish an ssh connection to the challenge (username)@(server) -p.
+                <b><u>Writeup:</u></b> UDownloading and opening our Assembly module, we need to figure out what argument
+                we need to input to the program so that it prints "win".
                 <br><br>
-                To find the list of automated commands on a given system, we must locate the
-                'crontab' file. This contains a list of commands that are executed on a regular schedule and is located
-                in the /etc directory. Concatenating the file gives us the flag.
+                Looking at the program, "func" function stores 83 is in [sp, 16], 0 in [sp, 20], and 3 in [sp, 24]. The
+                program then runs a series of calculations and stores the result in [sp, 28]. The value is then compared
+                to 0, if the value is equal to 0, the you win message is displayed. If the value is not equal to 0, then
+                the you lose message is displayed.
                 <br><br>
-                <img src="../../../images/genskill_img/chrono.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/genskill_img/armssembly1-0.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img1')" id="img1">
-                    <hr>
+                <br><br>
+                The series of calculations preformed in the functions can be seen below
+            <pre>
+                    <code>
+func:
+
+	sub	sp, sp, #32	# allocates 32 bytes of memory on the stack
+	str	w0, [sp, 12]	# stores the value in w0 to sp+12
+	mov	w0, 83		# sets the value of register w0 to 83
+	str	w0, [sp, 16]	# stores the value in w0 (83) to sp+16
+	str	wzr, [sp, 20]	# stores wzr (0 register) into sp+20
+	mov	w0, 3		# sets the value of w0 to 3
+	str	w0, [sp, 24]	# stores w0 (3) in sp+24
+	ldr	w0, [sp, 20]	# loads the value stored in sp+20 (0) to w0
+	ldr	w1, [sp, 16]	# loads the value stored in sp+16 (83) to w1
+	lsl	w0, w1, w0	# shifts the value stored in w1 (83) left by the number of bits 
+                                    #specified in w0 (0) and stores the result in w0 (83)
+	str	w0, [sp, 28]	# stores the value in w0 (83) to sp+28
+	ldr	w1, [sp, 28]	# loads the value stored in sp+28 (83) to w1
+	ldr	w0, [sp, 24]	# loads the value stored in sp+24 (3) to w0
+	sdiv	w0, w1, w0	# divides the value in w1 (83) by the value in w0 \
+                                    # (3) and stores it in w0 (83 / 3 = 27.6 -> 27)
+	str	w0, [sp, 28]	# stores the value in w0 (27) to sp+28
+	ldr	w1, [sp, 28]	# loads the value in sp+28 (27) to register w1
+	ldr	w0, [sp, 12]	# loads the value in sp+12 (x) to register w0
+	sub	w0, w1, w0	# subtracts the value in w1 (27) by the value in w0 (x) 
+                                    #and stores it back in w0 (27 - x)
+	str	w0, [sp, 28]	# store the updated value in w0 to sp+28
+	ldr	w0, [sp, 28]	# load the value in sp+28 to w0
+	add	sp, sp, 32	# restore the value of stack
+	ret			# return from the function
+                    </code>
+                </pre>
+            Looking at the function, we know our value needs to be equal to 27 for the compare in main (cmp w0, 0) to
+            return true, displaying the win message. We know our flag is 27, we need to convert this value to hex and
+            convert it to 32 bits. 27 in hex is 1B (8 bits) we need to pad it with 0's to make it 32 bits.
+            <hr>
             </p>
         </main>
         <footer>
