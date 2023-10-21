@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chrono</title>
+    <title>Wireshark Twoo Twooo Two Twoo...</title>
     <link rel="stylesheet" href="../../../style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
@@ -24,7 +24,7 @@
         </header>
 
         <main>
-            <h2>chrono</h2>
+            <h2>Wireshark twoo twooo two twoo...</h2>
             <hr>
             <p>
                 <b><u>Description:</u></b> Can you find the flag? shark2.pcapng.
@@ -74,7 +74,7 @@
                 <img src="../../../images/genskill_img/wiresharktwo6.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img7')" id="img7">
                 <br><br>
-                Our output seems to be jumbled but we see small fragments of he flag. It seems that not all of our
+                Our output seems to be jumbled but we see small fragments of the flag. It seems that not all of our
                 strings were base64 encoded. Looking back at our packet transfers, there are three different packet
                 destinations, 8.8.8.8, 192.168.38.104, and 18.217.1.57. This time, we can alter our initial tshark
                 filter out the different destinations ips to find which one returns our flag. Add && ip.dst == (ip

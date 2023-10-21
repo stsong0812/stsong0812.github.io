@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced-Potion-Making</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../../index.html">/Home</a>
+                <a href="../../../about.html">/About</a>
+                <a href="../../../projects.html">/Projects</a>
+                <a href="../../../writeups.html">/Writeups</a>
+            </nav>
+        </header>
+
+        <main>
+            <h2>advanced-potion-making</h2>
+            <hr>
+            <p>
+                <b><u>Description:</u></b> Ron just found his own copy of advanced potion making, but its been corrupted
+                by some kind of spell. Help him recover it!
+                <br><br>
+                <b><u>Writeup:</u></b> Download the file, using exiftool to examine the file, the file seems to be
+                corrupted.
+                <br><br>
+                Opening the file in hexedit notice the IHDR in the header of our ASCII data. This tells us this file is
+                most likely supposed to be a png file.
+                <br><br>
+                <img src="../../../images/genskill_img/advpotionmaking.png" alt="Terminal window"
+                    style="max-width: 100%;" onclick="toggleImgSize('img1')" id="img1">
+                <br><br>
+                Looking at the proper signature of a png file, we can see that our corrupted file has a few
+                discrepancies in its header.
+                <br><br>
+                <img src="../../../images/genskill_img/advpotionmaking1.png" alt="Terminal window"
+                    style="max-width: 100%;" onclick="toggleImgSize('img2')" id="img2">
+                <br><br>
+                Alter the hex data through hexedit to match the proper png file signature.
+                <br><br>
+                <img src="../../../images/genskill_img/advpotionmaking2.png" alt="Terminal window"
+                    style="max-width: 100%;" onclick="toggleImgSize('img3')" id="img3">
+                <br><br>
+                Now our file displays as a proper png, but opening the file shows us a completely red image.
+                <br><br>
+                <img src="../../../images/genskill_img/advpotionmaking3.png" alt="Terminal window"
+                    style="max-width: 100%;" onclick="toggleImgSize('img4')" id="img4">
+                <br><br>
+                We can most likely find our flag within the image through Stegsolve, a tool used to analyze
+                images in different planes by the altering of bits. Scrolling through the different planes, we obtain
+                our flag in red plane 0.
+                <br><br>
+                <img src="../../../images/genskill_img/advpotionmaking4.png" alt="Terminal window"
+                    style="max-width: 100%;" onclick="toggleImgSize('img4')" id="img4">
+                <hr>
+            </p>
+        </main>
+        <footer>
+
+            <div class="social-icons">
+                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+                        class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>Copyright &copy; 2023 Steven Song</p>
+        </footer>
+    </div>
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
