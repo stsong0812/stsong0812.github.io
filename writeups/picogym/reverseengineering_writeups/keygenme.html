@@ -27,19 +27,49 @@
             <h2>keygenme-py</h2>
             <hr>
             <p>
-                <b><u>Description:</u></b> How to automate tasks to run at intervals on linux servers? Additional
-                details will be available after launching your challenge instance.
+                <b><u>Description:</u></b> keygenme-trial.py
                 <br><br>
-                <b><u>Writeup:</u></b> Upon initiating the challenge instance, we are provided with the details for an
-                SSH connection. Establish an ssh connection to the challenge (username)@(server) -p.
-                <br><br>
-                To find the list of automated commands on a given system, we must locate the
-                'crontab' file. This contains a list of commands that are executed on a regular schedule and is located
-                in the /etc directory. Concatenating the file gives us the flag.
+                <b><u>Writeup:</u></b> Download the Python module and open it in an editor. After a quick scan of the
+                code, it looks like we are going need to find the license to obtain the full version of the app. Lets
+                look at where we enter the license.
                 <br><br>
                 <img src="../../../images/genskill_img/chrono.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img1')" id="img1">
-                    <hr>
+                <br><br>
+                The license handling in our code works like this:
+            <ol>
+                <li>Passes our stripped user input license to the check_key function along with username_trial
+                    ("MORTON")</li>
+                <li>The check_key function takes the parameters key (user input license) and username_trial ("MORTON")
+                </li>
+                <li>Checks if the length of the key matches the length of the template key</li>
+                <li>If lengths match, compare the characters of the user input key to the static template key</li>
+                <li>Next the function compares the index of key to the SHA256 hashed string (in bytes)</li>
+                <li>If the check_key function returns true, the module decrypts the full version</li>
+            </ol>
+            The explicit key comparison snippet shows us how the key is compared with the hashed username string. We can
+            create a python module or open an interpreter to import the hashlib to explicitly print the hashed string.
+            Running the code gives us the dynamic segment of our flag.
+            <pre>
+                <code>
+TEST.PY:
+
+import hashlib
+
+# initialize empty index
+index = []
+
+# print 8 number input prompts and append them to index
+for i in range(8):
+    num = int(input("Enter a number: "))
+    index.append(num)
+
+# print the hashed string
+for i in index:
+    print(hashlib.sha256(b"MORTON").hexdigest()[i], end='')
+                </code>
+            </pre>
+            <hr>
             </p>
         </main>
         <footer>
