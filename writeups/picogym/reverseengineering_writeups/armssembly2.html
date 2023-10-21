@@ -27,19 +27,31 @@
             <h2>ARMssembly 2</h2>
             <hr>
             <p>
-                <b><u>Description:</u></b> How to automate tasks to run at intervals on linux servers? Additional
-                details will be available after launching your challenge instance.
+                <b><u>Description:</u></b> What integer does this program print with argument 3297082261? File:
+                chall_2.S Flag format: picoCTF{XXXXXXXX} -> (hex, lowercase, no 0x, and 32 bits. ex. 5614267 would be
+                picoCTF{0055aabb})
                 <br><br>
-                <b><u>Writeup:</u></b> Upon initiating the challenge instance, we are provided with the details for an
-                SSH connection. Establish an ssh connection to the challenge (username)@(server) -p.
+                <b><u>Writeup:</u></b> Open the assembly module in a code editor. With an input argument of 3297082261,
+                we need to determine what the program will return. Our main function prepares the input for the first
+                function in our loop called func1.
                 <br><br>
-                To find the list of automated commands on a given system, we must locate the
-                'crontab' file. This contains a list of commands that are executed on a regular schedule and is located
-                in the /etc directory. Concatenating the file gives us the flag.
-                <br><br>
-                <img src="../../../images/genskill_img/chrono.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/genskill_img/armssembly2-0.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img1')" id="img1">
-                    <hr>
+                <br><br>
+                This seems to be the starting point for our loop. Observing the code, it looks like a loop occurs until
+                the compare method in the .L2 function returns false.
+                <br><br>
+                <img src="../../../images/genskill_img/armssembly2-1.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img2')" id="img2">
+                <br><br>
+                The program will loop until w1 becomes larger than w0. Knowing the value is incremented by 3 every loop,
+                we can multiply our input number by 3 for our result. Convert our resulting number to hex, and a 32 bit
+                number for our flag.
+                <br><br>
+                <img src="../../../images/genskill_img/armssembly2-2.png" alt="Terminal window" style="max-width: 100%;"
+                    onclick="toggleImgSize('img3')" id="img3">
+                <br><br>
+                <hr>
             </p>
         </main>
         <footer>
