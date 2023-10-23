@@ -31,38 +31,38 @@
                 see that the file has the bmp file extension. A bmp file is an uncompressed image format developed by
                 Microsoft for storing pixel data without loss of quality.
                 <br><br>
-                <img src="../../../images/genskill_img/tunn3lv1s1on.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/tunn3lv1s1on.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img1')" id="img1">
                 <br><br>
                 Examine the hex dump of the file's header using xxd. We see hex values that spell out "bad", this is
                 why our file is corrupted.
                 <br><br>
-                <img src="../../../images/genskill_img/tunn3lv1s1on1.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/tunn3lv1s1on1.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img2')" id="img2">
                 <br><br>
                 Looking the file signature of a bmp file from Wikipedia, we are missing an offset where the bitmap data
                 can be found and the number of bytes in the DIB header.
                 <br><br>
-                <img src="../../../images/genskill_img/tunn3lv1s1on2.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/tunn3lv1s1on2.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img3')" id="img3">
                 <br><br>
                 Using hexedit, we can alter the data offset and DIB header bytes to their proper values. Change the
                 corrupted values to their proper values and save the file with ctrl + x.
                 <br><br>
-                <img src="../../../images/genskill_img/tunn3lv1s1on3.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/tunn3lv1s1on3.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img4')" id="img4">
                 <br><br>
                 Open our fixed bmp file. Our file is not corrupted anymore but it seems like we still don't have our
                 flag.\
                 <br><br>
-                <img src="../../../images/genskill_img/tunn3lv1s1on4.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/tunn3lv1s1on4.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img5')" id="img5">
                 <br><br>
                 The image looks oddly cut off, lets try altering the hex information for its size. At the moment, the
                 file size seems to be 1134 x 306. Convert these values into hex(0x46e x 0x132) and let see if we can
                 find these values in the hex dump.
                 <br><br>
-                <img src="../../../images/genskill_img/tunn3lv1s1on5.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/tunn3lv1s1on5.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img6')" id="img6">
                 <br><br>
                 We can see these numbers in the second row, but it looks like the values are in little endian. So the
@@ -71,12 +71,12 @@
                 endian it would be flipped to look like 10 which would be equivalent to 100. Lets change the value to 3
                 instead to increase the height to 300.
                 <br><br>
-                <img src="../../../images/genskill_img/tunn3lv1s1on6.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/tunn3lv1s1on6.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img7')" id="img7">
                 <br><br>
                 Open the file, this time, we can see the full flag.
                 <br><br>
-                <img src="../../../images/genskill_img/tunn3lv1s1on7.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/tunn3lv1s1on7.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img8')" id="img8">
                 <hr>
             </p>

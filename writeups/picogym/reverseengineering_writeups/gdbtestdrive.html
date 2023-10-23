@@ -34,37 +34,37 @@
                 <b><u>Writeup:</u></b> Download the file and follow the instructions in the challenge description. First
                 apply executable permissions to the gdbme file.
                 <br><br>
-                <img src="../../../images/genskill_img/gdbtestdrive.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/gdbtestdrive.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img1')" id="img1">
                 <br><br>
                 Next start GDB (GNU Debugger) opening the file in the debugger. This allows us to interactively debug
                 the file through the command line.
                 <br><br>
-                <img src="../../../images/genskill_img/gdbtestdrive.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/gdbtestdrive.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img1')" id="img1">
                 <br><br>
                 Next, the description prompts us to execute "layout asm". This GDB command sets the display layout to
                 assembly mode, GDB will display the disassembled machine instructions.
                 <br><br>
-                <img src="../../../images/genskill_img/gdbtestdrive1.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/gdbtestdrive1.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img2')" id="img2">
                 <br><br>
                 Now execute the command, "break *(main+99)". This GDB command sets a breakpoint in the program located
                 at the memory location at main+99. Sets a breakpoint 99 bytes from the start of the main function.
                 <br><br>
-                <img src="../../../images/genskill_img/gdbtestdrive2.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/gdbtestdrive2.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img3')" id="img3">
                 <br><br>
                 Now run the "run" command to execute the program from the start. It will stop at the breakpoint set by
                 the previous command.
                 <br><br>
-                <img src="../../../images/genskill_img/gdbtestdrive3.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/gdbtestdrive3.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img4')" id="img4">
                 <br><br>
                 Next execute the "jump *(main+104)" command. This GDB command jumps to the instruction located at memory
                 location main+104 and executes. This command returns our flag.
                 <br><br>
-                <img src="../../../images/genskill_img/gdbtestdrive4.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/gdbtestdrive4.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img4')" id="img4">
                 <hr>
             </p>

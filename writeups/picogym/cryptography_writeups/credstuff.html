@@ -36,7 +36,7 @@
                 command, tar -xf leak.tar. In the unpacked leak directory we are given two text files, one containing
                 usernames and another containing passwords.
                 <br><br>
-                <img src="../../../images/genskill_img/credstuff.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/credstuff.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img1')" id="img1">
                 <br><br>
                 The challenge description tells us to find the password of the user "cultiris" knowing that each line in
@@ -44,13 +44,13 @@
                 text file, it is far too long to manually go through. Instead we can use the grep command with the -n
                 flag for line number to print the username and the line number. Execute grep -n cultiris usernames.txt
                 <br><br>
-                <img src="../../../images/genskill_img/credstuff1.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/credstuff1.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img2')" id="img2">
                 <br><br>
                 Now to find the corresponding password we can use sed with the -n flag to search for an entry using its
                 line number. Execute the command sed -n '378p' passwords.txt.
                 <br><br>
-                <img src="../../../images/genskill_img/credstuff2.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/credstuff2.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img3')" id="img3">
                 <br><br>
                 Here we get our encrypted flag, it looks like it has been encrypted through a caesar/rotation cipher.
@@ -60,7 +60,7 @@
                 use the tr command to decrypt the string. Echo the string to the tr command, tr "a-zA-Z" "n-za-mN-ZA-M".
                 This gives us our decrypted flag.
                 <br><br>
-                <img src="../../../images/genskill_img/credstuff3.png" alt="Terminal window" style="max-width: 100%;"
+                <img src="../../../images/pico_imgs/credstuff3.png" alt="Terminal window" style="max-width: 100%;"
                     onclick="toggleImgSize('img4')" id="img4">
                 <hr>
             </p>
