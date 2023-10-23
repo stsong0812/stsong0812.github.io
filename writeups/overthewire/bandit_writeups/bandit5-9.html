@@ -39,17 +39,27 @@
                 <img src="../../../images/otw_imgs/Bandit5-1.png" alt="Terminal window"
                     style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img1')" id="img1">
                 <br>
-                This command sends a request through the ssh to log into a remote machine called
-                bandit.labs.overthewire.org, with the specific username “bandit0” additionally, using the –p flag to
-                specify the port number.
+                We need to use the find command, this command will let us locate a file using different flags
+                    that will act as a filter. Upon further research I found that we could search files by size using a
+                    -size flag.
+                    <br><br>
+                    In utilizing the command “find . -size 1033c”
+                <ul>
+                    <li>“.” to look inside current directory</li>
+                    <li>“-size” to search by size</li>
+                    <li>“1033” size to search by</li>
+                    <li>“c” type of unit, in this case, bytes</li>
+                </ul>
+                We are given the following output...
                 <br><br>
-                From here on, you can enter the password provided by the level.
-                <br><br>
-                Upon entering the password, you are flooded with a ton of information regarding the machine, but
-                more importantly, you’ve completed the first level in OverTheWire’s beginner wargame!
-                <br><br>
-                <img src="../../../images/otw_imgs/Bandit0-2.png" alt="Terminal window"
+                <img src="../../../images/otw_imgs/Bandit5-2.png" alt="Terminal window"
                     style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img2')" id="img2">
+                From here, we can traverse into the maybehere07 folder and cat the file2 folder with the command “cat
+                ./.file2” which will give us the next password.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit5-3.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img3')" id="img3">
+                <br><br>
                 <hr>
             </p>
 
