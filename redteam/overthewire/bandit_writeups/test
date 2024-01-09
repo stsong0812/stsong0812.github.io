@@ -1,52 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OverTheWire Bandit</title>
-    <link rel="stylesheet" href="../../../style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
-</head>
-
-<body>
-    <div class="container">
-        <header>
-            <div class="brand">/Steven Song</div>
-            <nav>
-                <a href="../../../index.html">/Home</a>
-                <a href="../../../about.html">/About</a>
-                <a href="../../../redteam.html">/Red-Team</a>
-                <a href="../../../blueteam.html">/Blue-Team</a>
-                <a href="../../../misc.html">/Misc</a>
-            </nav>
-        </header>
-
-        <main>
-            <h2>Bandit Level 10 → 14:</h2>
-            <hr>
-            <h3>Bandit Level 10 → 11:</h3>
+<h2>Bandit Level 10 → 11:</h2>
             <p>
                 <b>Level Goal:</b> The password for the next level is stored in the file data.txt, which contains
                 base64 encoded data
                 <br><br>
                 <b>Writeup:</b>
-                This level asks us to decode the base64 encoded data stored in the text file. Upon
+                This level seems to ask us to decode the base64 encoded data stored in the text file. Upon
                 concatenating the text file, we are met with this string…
                 <br><br>
-                <img src="../../../images/otw_imgs/Bandit10-1.png" alt="Terminal window"
-                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img1')" id="img1">
+                <img src="../../../images/bandit_img/Bandit10-1.png" alt="Terminal window" class="center">
                 <br>
-                As stated in the level goal, the contents of the text file are encoded. We can encode or decode standard
-                input/output of any file content in base64 using Linux's base64 command with the -d flag for decode.
+                As stated in the level goal, the contents of the text file are encoded. After a quick Google search,
+                I found out that we can encode or decode standard input/output or any file content using Linux's
+                base64 encoding and decoding system.
                 <br><br>
-                <img src="../../../images/otw_imgs/Bandit10-2.png" alt="Terminal window"
-                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img2')" id="img2">
+                <img src="../../../images/bandit_img/Bandit10-2.png" alt="Terminal window" class="center">
+                <br>
+                We have obtained the next level’s password through decoding!
             </p>
             <hr>
 
-            <h3>Bandit Level 11 → 12:</h3>
+            <h2>Bandit Level 11 → 12:</h2>
             <p>
                 <b>Level Goal:</b> The password for the next level is stored in the file data.txt, where all
                 lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions
@@ -56,8 +29,7 @@
                 <br><br>
                 Upon concatenating the data text file, we are shown this:
                 <br><br>
-                <img src="../../../images/otw_imgs/Bandit11-1.png" alt="Terminal window"
-                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img3')" id="img3">
+                <img src="../../../images/bandit_img/Bandit11-1.png" alt="Terminal window" class="center">
                 <br>
                 Using the tr command, a tool that translates, deletes, and squeezes characters from the standard
                 input, we can decode this.
@@ -67,19 +39,19 @@
                 tr [SET1] [SET2], In this case, tr will replace the characters within the first set with the
                 corresponding characters from the second set.
                 <br><br>
-                “a-zA-Z” represents our first set, including lowercase and uppercase letters of the alphabet. These are the letters
+                “a-zA-Z” represents our first set, including lowercase and uppercase letters. There are the letters
                 that will be replaced.
                 <br><br>
                 “n-za-zN-ZA-M” represents our second set, the letters that will take the place of our first set.
                 This set starts 13 letters after a, and because the translation won’t go further than z, we start it
-                again at a-m. Again, also including the uppercase counterparts. With this, we are given the password to the next level.
+                again at a-m. Again, also including the uppercase counterparts.
+                With this, we are given the password to the next level.
                 <br><br>
-                <img src="../../../images/otw_imgs/Bandit11-2.png" alt="Terminal window"
-                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img4')" id="img4">
+                <img src="../../../images/bandit_img/Bandit11-3.png" alt="Terminal window" class="center">
             </p>
             <hr>
 
-            <h3>Bandit Level 12 → 13:</h3>
+            <h2>Bandit Level 12 → 13:</h2>
             <p>
                 <b>Level Goal:</b> The password for the next level is stored in the file data.txt, which is a
                 hexdump of a file that has been repeatedly compressed. For this level it may be useful to create a
@@ -90,8 +62,7 @@
                 a hexdump is a hexadecimal view of computer data, in a hex dump, each byte (8 bits) is represented
                 as a two-digit hexadecimal number. This is evident when we cat the data.txt file.
                 <br><br>
-                <img src="../../../images/otw_imgs/Bandit12-1.png" alt="Terminal window"
-                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img5')" id="img5">
+                <img src="../../../images/bandit_img/Bandit12-1.png" alt="Terminal window" class="center">
                 <br>
                 For the purposes of this level, we will need both read and write privileges so, as the level goal
                 suggests we create our own working directory within the /tmp or temporary directory. Use the
@@ -103,8 +74,7 @@
                 the directory we created with “cd /tmp/swift”, confirm that we have copied the file with the ls
                 command.
                 <br><br>
-                <img src="../../../images/otw_imgs/Bandit12-2.png" alt="Terminal window"
-                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img6')" id="img6">
+                <img src="../../../images/bandit_img/Bandit12-2.png" alt="Terminal window" class="center">
                 <br>
                 In observing the list of possible commands given, the xxd command-line tool would be great for this
                 scenario. The xxd tool allows us to create a hexdump or do the reverse. Using the command “xxd -r
@@ -116,23 +86,20 @@
                 command, “file data2”, to once again, check the file’s type, we see it is now in bzip2 compressed
                 data format.
                 <br><br>
-                <img src="../../../images/otw_imgs/Bandit12-3.png" alt="Terminal window"
-                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img7')" id="img7">
+                <img src="../../../images/bandit_img/Bandit12-3.png" alt="Terminal window" class="center">
                 <br>
                 Now we must change the file extension to match that of bzip2, using the command “mv data2
                 data3.bz2”, we can then utilize bzip2 to decompress the file once more with “bzip2 -d data3.bz2”.
                 Checking the newest file’s type with the file command (“file data3”), we see it is again in a gzip
                 compressed data format.
                 <br><br>
-                <img src="../../../images/otw_imgs/Bandit12-4.png" alt="Terminal window"
-                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img8')" id="img8">
+                <img src="../../../images/bandit_img/Bandit12-4.png" alt="Terminal window" class="center">
                 <br>
                 We must change data3’s filetype to gzip, “mv data3 data4.gz'' so now we can use gzip to decompress.
                 “gzip -d data4.gz” to check the filetype once more with “file data4” we see that it is now a tar
                 archive.
                 <br><br>
-                <img src="../../../images/otw_imgs/Bandit12-5.png" alt="Terminal window"
-                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img9')" id="img9">
+                <img src="../../../images/bandit_img/Bandit12-5.png" alt="Terminal window" class="center">
                 <br>
                 We change the new file’s extension to a tar with the command, “mv data4 data5.tar”, we can now
                 interact with the tar file using tar. With the command, “tar xf data5.tar” (xf for extract file) we
@@ -141,28 +108,25 @@
                 with “tar xf data6.tar” we are given a file called data6.bin, in checking its filetype with “file
                 data6.tar” we see it is once again a bzip2 compressed data file.
                 <br><br>
-                <img src="../../../images/otw_imgs/Bandit12-6.png" alt="Terminal window"
-                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img10')" id="img10">
+                <img src="../../../images/bandit_img/Bandit12-6.png" alt="Terminal window" class="center">
                 <br>
                 Move the data6 file with the command, “mv data6.bin data7.bz2”, and decompress again using “bzip2 -d
                 data7.bz2”. Now, to check data7’s filetype we use “file data7'' to see that it is in the tar archive
                 format. We must move the file again, the command “mv data7 data8.tar” we can now use the tar
                 command, “tar xf data8.tar” which will give us a data8.bin file.
                 <br><br>
-                <img src="../../../images/otw_imgs/Bandit12-7.png" alt="Terminal window"
-                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img11')" id="img11">
+                <img src="../../../images/bandit_img/Bandit12-7.png" alt="Terminal window" class="center">
                 <br>
                 We can check the filetype of data8.bin with “file data8.bin'' we see it’s a gzip file once again. We
                 move the data8 file with “mv data8.bin data9.gz”. So we can now use gzip to decompress with “gzip -d
                 data9.gz”. Checking the filetype of data9 (file data9), we see it is finally in ASCII text. We can
                 now cat the file to obtain the next level’s password.
                 <br><br>
-                <img src="../../../images/otw_imgs/Bandit12-9.png" alt="Terminal window"
-                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img12')" id="img12">
+                <img src="../../../images/bandit_img/Bandit12-9.png" alt="Terminal window" class="center">
             </p>
             <hr>
 
-            <h3>Bandit Level 13 → 14:</h3>
+            <h2>Bandit Level 13 → 14:</h2>
             <p>
                 <b>Level Goal:</b> The password for the next level is stored in /etc/bandit_pass/bandit14 and can
                 only be read by user bandit14. For this level, you don’t get the next password, but you get a
@@ -175,16 +139,14 @@
                 own localhost, additionally, we use the -i flag to specify a file containing the private key we need
                 to enter.
                 <br><br>
-                <img src="../../../images/otw_imgs/Bandit13-2.png" alt="Terminal window"
-                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img13')" id="img13">
+                <img src="../../../images/bandit_img/Bandit13-2.png" alt="Terminal window" class="center">
                 <br>
                 Sort - Used to sort a file, arranging the records in a particular order.
                 <br><br>
                 When inside the machine, we can then cat the file with its specified path from the level goal. Use
                 the command, “cat /etc/bandit_pass/bandit14” to get the password for the next leve
                 <br><br>
-                <img src="../../../images/otw_imgs/Bandit13-3.png" alt="Terminal window"
-                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img14')" id="img14">
+                <img src="../../../images/bandit_img/Bandit13-3.png" alt="Terminal window" class="center">
             </p>
             <hr>
 
@@ -203,26 +165,5 @@
                 (ctrl + shift + c) and paste it (ctrl + shift + v) into the new line. This should give you the
                 password for our next level.
                 <br><br>
-                <img src="../../../images/otw_imgs/Bandit13-6.png" alt="Terminal window"
-                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img15')" id="img15">
+                <img src="../../../images/bandit_img/Bandit13-6.png" alt="Terminal window" class="center">
             </p>
-        </main>
-        <footer>
-
-            <div class="social-icons">
-                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
-                        class="fab fa-youtube"></i></a>
-            </div>
-
-            <p>Copyright &copy; 2023 Steven Song</p>
-        </footer>
-    </div>
-    <script src="../../../scripts/enlarge_img.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
-</body>
-
-</html>
