@@ -2,47 +2,126 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OverTheWire Krypton</title>
-    <link rel="stylesheet" href="../../../style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
-  </head>
-  
-  
-  <body>
-    <div class="container">
-      <header>
-        <div class="brand">/Steven Song</div>
-        <nav>
-          <a href="../../../index.html">/Home</a>
-          <a href="../../../about.html">/About</a>
-          <a href="../../../redteam.html">/Red-Team</a>
-          <a href="../../../blueteam.html">/Blue-Team</a>
-          <a href="../../../misc.html">/Misc</a>
-        </nav>
-      </header>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OverTheWire Krypton</title>
+  <link rel="stylesheet" href="../../../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
 
-        <main>
 
-        </main>
-        <footer>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">/Steven Song</div>
+      <nav>
+        <a href="../../../index.html">/Home</a>
+        <a href="../../../about.html">/About</a>
+        <a href="../../../redteam.html">/Red-Team</a>
+        <a href="../../../blueteam.html">/Blue-Team</a>
+        <a href="../../../misc.html">/Misc</a>
+      </nav>
+    </header>
 
-            <div class="social-icons">
-                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
-                        class="fab fa-youtube"></i></a>
-            </div>
+    <main>
+      <h2>Krypton Level 4 → 7:</h2>
+      <hr>
+      <h3>Krypton Level 3 → 4:</h3>
+      <p>
+        <b><u>Level Goal:</u></b>
+        Well done. You’ve moved past an easy substitution cipher. The main weakness of a simple substitution cipher is
+        repeated use of a simple key. In the previous exercise you were able to introduce arbitrary plaintext to expose
+        the key. In this example, the cipher mechanism is not available to you, the attacker. However, you have been
+        lucky. You have intercepted more than one message. The password to the next level is found in the file
+        ‘krypton4’. You have also found 3 other files. (found1, found2, found3) <br>
+        You know the following important details: <br>
+        The message plaintexts are in American English (*** very important) - They were produced from the same key (***
+        even better!) Enjoy.
+        <br><br>
+        <b><u>Writeup:</u></b> Navigate to the Krypton3 directory, looking at the provided files, it looks like we are
+        going to need to perform a frequency analysis in order to determine the letter substitutions. Unlike last time,
+        our key will not be the same for every letter of the alphabet.
+        <br><br>
+        <img src="../../../images/otw_imgs/Krypton3-1.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img1')" id="img1">
+        <br>
+        Our first step will be to determine the letter frequency of the provided files. This way we may be able to map
+        some of the most frequency characters found with the most frequency characters used in the English language.
+        <br><br>
+        Using the command "sed 's/(.)/\1\n/g' found1 | grep '[A-Z]' | sort | uniq -c", we can determine the frequency of
+        each letter in the file.
+      <ol>
+        <li>sed 's/(.)/\1\n/g' found1: This command uses the sed tool with a substitution expression (s/) to replace
+          every occurrence of a character with itself (\1) followed by a newline character (\n). The g flag ensures that
+          all occurrences are replaced, not just the first one. The input for this command is taken from the file
+          found1.</li>
+        <li>grep '[A-Z]': This command uses the grep tool to filter the output of the previous sed command. It searches
+          for lines that contain uppercase letters between A and Z.</li>
+        <li>sort: This command sorts the lines of the input in ascending order.</li>
+        <li>uniq -c: This command uses the uniq tool with the -c flag to count the number of consecutive occurrences of
+          each unique line. It displays the count before each line.</li>
+      </ol>
+      <img src="../../../images/otw_imgs/Krypton3-2.png" alt="Terminal window"
+        style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img2')" id="img2">
+      <br>
+      In all cases, we can see that "S" is our most frequent character. According to Wikipedia, the most frequent letter
+      in both texts and in dictionaries is the letter "E". Using tr we can replace the letter s with the letter e.
+      <br><br>
+      <img src="../../../images/otw_imgs/Krypton3-3.png" alt="Terminal window"
+        style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img3')" id="img3">
+      <br>
+      Additionally, looking at double letters in our string, we can see "VV" and "UU", the most common pair of double
+      letters is "LL". We can first replace "V" with "L". We also know that the string "password" will most likely be in
+      the string, the double "U" may correspond with the double "S" in the word password. Knowing this we can then map
+      the rest of the corresponding letters to the letters in password.
+      <br><br>
+      <img src="../../../images/otw_imgs/Krypton3-4.png" alt="Terminal window"
+        style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img4')" id="img4">
+      <br>
+      Now our string is looking a little more sensible. It looks after the word "well" comes "done" so lets replace "G"
+      with "N". Additionally it looks like after "password" should come "is" so we can also replace "C" with "I". We can
+      also guess that "level" will be in this string, we have "LEIE L" so lets also replace "I" with "V".
+      <br><br>
+      <img src="../../../images/otw_imgs/Krypton3-5.png" alt="Terminal window"
+        style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img5')" id="img5">
+      <br>
+      So far we have the string "WELL DONE JDE LEVEL XOMR PASSWORD IS ARMJE". It looks like "JDE" corresponds to "THE".
+      Additionally it looks like "XOMR" will correspond to "FOUR" for level 4. Now we have "WELL DONE THE LEVEL FOUR
+      PASSWORD IS ARUTE". Lastly, we can infer that "A" should be "B" to create the word "brute".
+      <br><br>
+      <img src="../../../images/otw_imgs/Krypton3-6.png" alt="Terminal window"
+        style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img6')" id="img6">
+      <br>
+      <hr>
+      </p>
 
-            <p>Copyright &copy; 2023 Steven Song</p>
-        </footer>
-    </div>
-    <script src="../../../scripts/enlarge_img.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
+      <h3>Krypton Level 4 → 5:</h3>
+      <p>
+        <b><u>Level Goal:</u></b>
+        <hr>
+      </p>
+
+      <h3>Krypton Level 6 → 7:</h3>
+      <p>
+        <b><u>Level Goal:</u></b>
+    </main>
+    <footer>
+
+      <div class="social-icons">
+        <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+            class="fab fa-youtube"></i></a>
+      </div>
+
+      <p>Copyright &copy; 2023 Steven Song</p>
+    </footer>
+  </div>
+  <script src="../../../scripts/enlarge_img.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </body>
 
 </html>
