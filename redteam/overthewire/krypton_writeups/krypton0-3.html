@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OverTheWire Krypton</title>
+  <link rel="stylesheet" href="../../../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">/Steven Song</div>
+      <nav>
+        <a href="../../../index.html">/Home</a>
+        <a href="../../../about.html">/About</a>
+        <a href="../../../redteam.html">/Red-Team</a>
+        <a href="../../../blueteam.html">/Blue-Team</a>
+        <a href="../../../misc.html">/Misc</a>
+      </nav>
+    </header>
+
+    <main>
+      <h2>Krypton Level 0 → 3:</h2>
+      <hr>
+      <h3>Krypton Level 0 → 1:</h3>
+      <p>
+        <b><u>Level Goal:</u></b>
+        Welcome to Krypton! The first level is easy. The following string encodes the password using Base64: <br>
+        S1JZUFRPTklTR1JFQVQ= <br>
+        Use this password to log in to krypton.labs.overthewire.org with username krypton1 using SSH on port 2231. You
+        can find the files for other levels in /krypton/
+        <br><br>
+        <b><u>Writeup:</u></b> The level info provides us with a base64 encoded string. We can easily decode the string
+        in our terminal by echoing the string to the base64 command.
+        <br><br>
+        <img src="../../../images/otw_imgs/Krypton0-1.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img1')" id="img1">
+        <br>
+        With our password, we can ssh into the krypton1 machine with the provided server information.
+        <br><br>
+        <img src="../../../images/otw_imgs/Krypton0-2.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img2')" id="img2">
+        <hr>
+      </p>
+
+      <h3>Krypton Level 1 → 2:</h3>
+      <p>
+        <b><u>Level Goal:</u></b> The password for level 2 is in the file ‘krypton2’. It is ‘encrypted’ using a simple
+        rotation. It is also in non-standard ciphertext format. When using alpha characters for cipher text it is normal
+        to group the letters into 5 letter clusters, regardless of word boundaries. This helps obfuscate any patterns.
+        This file has kept the plain text word boundaries and carried them to the cipher text. Enjoy!
+        <br><br>
+        <b><u>Writeup:</u></b> Our working directory doesn't seem to have any files. Navigating to the root directory we
+        see a directory called krypton. In that directory navigate to krypton1 to obtain our challenge files.
+        <br><br>
+        <img src="../../../images/otw_imgs/Krypton1-1.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img3')" id="img3">
+        <br>
+        Concatenating the krypton2 file, we see an encrypted string. Knowing the string is encrypted using a rotational
+        cipher we can apply the same rotational cipher to the string to obtain the password. We just need to find out
+        how many places the string is rotated.
+        <br><br>
+        <img src="../../../images/otw_imgs/Krypton1-2.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img4')" id="img4">
+        <br>
+        Guessing the string has been encrypted using ROT13, we can echo the string to the tr command to substitute each
+        letter 13 letters ahead of it. The decrypted string has our password for the next level.
+        <br><br>
+        <img src="../../../images/otw_imgs/Krypton1-3.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img5')" id="img5">
+        <hr>
+      </p>
+
+      <h3>Krypton Level 2 → 3:</h3>
+      <p>
+        <b><u>Level Goal:</u></b> The password for level 3 is in the file krypton3. It is in 5 letter group ciphertext.
+        It is encrypted with a Caesar Cipher. Without any further information, this cipher text may be difficult to
+        break. You do not have direct access to the key, however you do have access to a program that will encrypt
+        anything you wish to give it using the key. If you think logically, this is completely easy.
+        <br><br>
+        <b><u>Writeup:</u></b> Once again navigate to the krypton2 subdirectory in the root directory. Listing the
+        contents of the directory we are given an encryption executable, a keyfile data file, a krypton3 test file and a
+        readme file for the level.
+        <br><br>
+        <img src="../../../images/otw_imgs/Krypton2-1.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img6')" id="img6">
+        <br>
+        Attempting to use the encryption executable on our plaintext krypton3 file we see that the file does not have
+        permissions to create a file in the directory. Lets create our own temp directory that we will have
+        read/write/execute access for. Additionally, we will create a link to the keyfile.dat in our temp directory as
+        it is used by the encrypt executable to encrypt a string.
+        <br><br>
+        <img src="../../../images/otw_imgs/Krypton2-2.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img7')" id="img7">
+        <br>
+        As shown in the readme file, it looks like we can test the linked keyfile by executing the encrypt file with
+        /etc/issue as our argument. This gives us the encrypted string for the content of the issue file, we now know
+        our link is functioning properly.
+        <br><br>
+        <img src="../../../images/otw_imgs/Krypton2-3.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img8')" id="img8">
+        <br>
+        Lets create our own test file to run the encryption through to know what kind of cipher we are dealing with
+        here. Create a text file with the string "abc" to observe the rotation used to encrypt our string. Now execute
+        the encrypt file with the test file as our input. Concatenate the output ciphertext file to see the rotation
+        applied.
+        <br><br>
+        <img src="../../../images/otw_imgs/Krypton2-4.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img9')" id="img9">
+        <br>
+        It looks like we have ROT14 here seeing as M is 14 places ahead of A and N is 14 places ahead of B, and so on.
+        Knowing this, we can easily apply ROT14 to the string in our krypton3 file for our password.
+        <br><br>
+        <img src="../../../images/otw_imgs/Krypton2-5.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img9')" id="img9">
+        <br>
+        <hr>
+      </p>
+    </main>
+    <footer>
+
+      <div class="social-icons">
+        <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+            class="fab fa-youtube"></i></a>
+      </div>
+
+      <p>Copyright &copy; 2023 Steven Song</p>
+    </footer>
+  </div>
+  <script src="../../../scripts/enlarge_img.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+
+</html>
