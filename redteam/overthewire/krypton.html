@@ -1,75 +1,68 @@
 <!DOCTYPE html>
-
-<html lang="en-US">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="../../styles.css">
-    <link rel="icon" href="../../images/global_img/whitespy.png" type="image/x-icon" />
-    <title>OverTheWire Leviathan</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OverTheWire Krypton</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
 </head>
 
 <body>
-    <div class="header">
-        <div class="navigation">
-            <ul>
-                <li><a href="https://youtu.be/xvFZjo5PgG0">/Steven Song</a></li>
-            </ul>
-            <ul>
-                <li><a href="../../index.html">/Home</a></li>
-                <li><a href="../../about.html">/About</a></li>
-                <li><a href="../../projects.html">/Projects</a></li>
-                <li><a href="../../writeups.html">/Writeups</a></li>
-                <li><a href="../../experience.html">/Experience</a></li>
-            </ul>
-        </div>
-    </div>
-
     <div class="container">
-        <h1>
-            OverTheWire: Natas
-        </h1>
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../index.html">/Home</a>
+                <a href="../../about.html">/About</a>
+                <a href="../../redteam.html">/Red-Team</a>
+                <a href="../../blueteam.html">/Blue-Team</a>
+                <a href="../../misc.html">/Misc</a>
+            </nav>
+            <h2 div class="centered">Leviathan</h2>
+            <p>"The Krypton wargame."</p>
+            <hr class="divider" />
+        </header>
 
-        <p class="shifted">
-            This game is intended to give hands on experience with cryptography
-            and cryptanalysis. The levels progress from classic ciphers, to modern,
-            easy to harder. 
-            <br><br>
-            Although there are excellent public tools, like cryptool,to perform
-            the simple analysis, we strongly encourage you to try and do these
-            without them for now. We will use them in later excercises.
-        </p>
+        <main>
+            <br />
+            <div class="card">
+                <a href="./krypton_writeups/krypton0-4.html">
+                    <h3>Krypton 0-4:</h3>
+                    <p>
+                        Welcome to Krypton! The first level is easy. The following string encodes the password using
+                        Base64: S1JZUFRPTklTR1JFQVQ=
+                    </p>
+                </a>
+            </div>
+            <div class="card">
+                <a href="./krypton_writeups/krypton5-7.html">
+                    <h3>Krypton 5-7:</h3>
+                    <p>
+                        Well done. You’ve moved past an easy substitution cipher. The main weakness of a simple
+                        substitution cipher is repeated use of a simple key. In the previous exercise you were able to
+                        introduce arbitrary plaintext to expose the key. In this example, the cipher mechanism is not
+                        available to you, the attacker. However, you have been lucky. You have intercepted more than one
+                        message. The password to the next level is found in the file ‘krypton4’. You have also found 3
+                        other files. (found1, found2, found3)
+                    </p>
+                </a>
+            </div>
+        </main>
+        <footer>
+            <div class="social-icons">
+                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+            </div>
 
-        <hr>
-
-        <div>
-            <ul>
-                <h3>OverTheWire Natas</h3>
-                <ul>
-                    <li><a href="https://stevens-notes.gitbook.io/overthewire-krypton/" target="_blank">OverTheWire
-                            Krypton: 0-4</a></li> <br>
-                    <li><a href="https://stevens-notes.gitbook.io/overthewire-krypton/overthewire-krypton-level-4-greater-than-7" target="_blank">OverTheWire
-                            Krypton: 4-7</a></li> <br>
-                </ul>
-            </ul>
-        </div>
+            <p>Copyright &copy; 2023 Steven Song</p>
+        </footer>
     </div>
 
-    <div class="social_icons">
-        <ul>
-            <li>
-                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank" z><img
-                        src="../../images/icons_img/linkedin.png" alt="linkedin png">
-                    <a href="https://github.com/stsong0812" target="_blank"><img src="../../images/icons_img/github.png"
-                            alt="github png">
-                        <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><img
-                                src="../../images/icons_img/youtube.png" alt="youtube png">
-                            <a href="https://twitter.com/stsong0812" target="_blank"><img
-                                    src="../../images/icons_img/twitter.png" alt="twitter png">
-            </li>
-        </ul>
-    </div>
-
+    <script src="script.js"></script>
 </body>
 
 </html>
