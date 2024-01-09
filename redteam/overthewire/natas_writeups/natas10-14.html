@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OverTheWire Natas</title>
+    <link rel="stylesheet" href="../../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+  </head>
+  
+  
+  <body>
+    <div class="container">
+      <header>
+        <div class="brand">/Steven Song</div>
+        <nav>
+          <a href="../../../index.html">/Home</a>
+          <a href="../../../about.html">/About</a>
+          <a href="../../../redteam.html">/Red-Team</a>
+          <a href="../../../blueteam.html">/Blue-Team</a>
+          <a href="../../../misc.html">/Misc</a>
+        </nav>
+      </header>
+
+        <main>
+            <h2>Natas Level 0-4:</h2>
+            <hr>
+            <h3>Natas Level 0:</h3>
+            <p>
+                <b><u>Level Goal:</u></b>
+                Username: natas0 <br>
+                Password: natas0 <br>
+                URL: http://natas0.natas.labs.overthewire.org
+                <br><br>
+                <b><u>Writeup:</u></b> Start by inspect elementing the page, expand the HTML code by right clicking the
+                <html> tag and pressing "expand recursively". Under the "natas0" header we see the next level's
+                password.
+                <br><br>
+                To connect to the bandit 0 game, enter this command to your terminal (ssh
+                bandit0@bandit.labs.overthewire.org -p 2220):
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit0-1.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img1')" id="img1">
+                <br>
+                This command sends a request through the ssh to log into a remote machine called
+                bandit.labs.overthewire.org, with the specific username “bandit0” additionally, using the –p flag to
+                specify the port number.
+                <br><br>
+                From here on, you can enter the password provided by the level.
+                <br><br>
+                Upon entering the password, you are flooded with a ton of information regarding the machine, but
+                more importantly, you’ve completed the first level in OverTheWire’s beginner wargame!
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit0-2.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img2')" id="img2">
+                <hr>
+            </p>
+
+            <h3>Bandit Level 0 → 1:</h3>
+            <p>
+                <b><u>Level Goal:</u></b> The password for the next level is stored in a file called readme located in
+                the home directory. Use this password to log into bandit1 using SSH. Whenever you find a password for a
+                level, use SSH (on port 2220) to log into that level and continue the game.
+                <br><br>
+                <b><u>Writeup:</u></b> This level requires you to traverse the machine to locate a readme file. To do
+                so,
+                type the “ls” command to list the contents of the directory you are currently in.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit1-1.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img3')" id="img3">
+                <br>
+                Upon entering the command, you can observe the readme file. From there, use the “cat” command
+                followed by the title of the text file you wish to concatenate.
+                <br><br>
+                <b>Tip:</b> When specifying the names of files in the command line, you can press “tab” to
+                autocomplete the
+                title specification.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit1-2.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img4')" id="img4">
+                <br>
+                In doing so, you are given the password to the next machine! Make sure to copy this to your
+                clipboard, or anywhere you can access again.
+                <hr>
+            </p>
+
+            <h3>Bandit Level 1 → 2:</h3>
+            <p>
+                <b><u>Level Goal:</u></b> The password for the next level is stored in a file called - located in the
+                home directory
+                <br><br>
+                <b><u>Writeup:</u></b> This level builds upon the previous ones, first, we will have to log into the
+                bandit1 machine using the following command (ssh bandit1@bandit.labs.overthewire.org -p 2220):
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit2-1.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img5')" id="img5">
+                <br>
+                Now copy the password from the previous machine, using ctrl + shift + c, unlike the standard
+                shortcut, to copy a string of text, in the terminal, we include a shift to differentiate the
+                shortcut from “ctrl + c” a terminal command that terminates any running program. Upon copying the
+                password, you will now have to paste it into the password prompt using the ctrl + shift + v
+                shortcut. Having made it into the machine, we must find the “-” file.
+                <br><br>
+                Using the ls command, we can see that the file is in the directory we are currently in, but as you
+                notice, in attempting to concatenate (cat) the file, nothing happens. To access files with special
+                characters we will need to utilize the “. /” command which uses an explicit path to the file.
+                <br><br>
+                And again, we get the password for the next level.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit2-2.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img6')" id="img6">
+                <hr>
+            </p>
+
+            <h3>Bandit Level 2 → 3:</h3>
+            <p>
+                <b><u>Level Goal:</u></b> The password for the next level is stored in a file called spaces in this
+                filename located in the home directory
+                <br><br>
+                <b><u>Writeup:</u></b> This level, like the last, asks us to access a file named “spaces in this
+                filename”. Upon logging into the machine and listing its files, the file we need is directly in front of
+                us.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit3-1.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img7')" id="img7">
+                <br>
+                To cat this file, we will need to put the full name of the file in quotes like so:
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit3-2.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img8')" id="img8">
+                <br>
+                And we are given the password for the next level!
+                <hr>
+            </p>
+
+            <h3>Bandit Level 3 → 4:</h3>
+            <p>
+                <b><u>Level Goal:</u></b> The password for the next level is stored in a hidden file in the “inhere”
+                directory.
+                <br><br>
+                <b><u>Writeup:</u></b> Similar to the last, this level asks us to find a hidden file. This is easy, cd
+                into the “inhere” directory and use the “ls” command to list the files within the directory.
+                Additionally, use the "file ./*" command to search and display the files and file types in the
+                directory.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit4-1.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img9')" id="img9">
+                <br>
+                Now that we have revealed the hidden directory, we can cat the file with the following command:
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit4-2.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img10')" id="img10">
+                <hr>
+            </p>
+        </main>
+        <footer>
+
+            <div class="social-icons">
+                <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+                        class="fab fa-youtube"></i></a>
+            </div>
+
+            <p>Copyright &copy; 2023 Steven Song</p>
+        </footer>
+    </div>
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
