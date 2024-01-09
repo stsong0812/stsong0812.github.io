@@ -2,182 +2,214 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OverTheWire Bandit</title>
-  <link rel="stylesheet" href="../../../style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OverTheWire Bandit</title>
+    <link rel="stylesheet" href="../../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
 </head>
 
-
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">/Steven Song</div>
-      <nav>
-        <a href="../../../index.html">/Home</a>
-        <a href="../../../about.html">/About</a>
-        <a href="../../../redteam.html">/Red-Team</a>
-        <a href="../../../blueteam.html">/Blue-Team</a>
-        <a href="../../../misc.html">/Misc</a>
-      </nav>
-    </div>
-
     <div class="container">
-        <h1>
-            <u> <b> OverTheWire: Bandit 15 → 19</b> </u>
-        </h1>
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../../index.html">/Home</a>
+                <a href="../../../about.html">/About</a>
+                <a href="../../../redteam.html">/Red-Team</a>
+                <a href="../../../blueteam.html">/Blue-Team</a>
+                <a href="../../../misc.html">/Misc</a>
+            </nav>
+        </header>
 
-        <div>
-            <ul>
-                <h2>Bandit Level 15 → 16:</h2>
-                <p>
-                    <b>Level Goal:</b> The password for the next level can be retrieved by submitting the password of
-                    the current level to port 30001 on localhost using SSL encryption.
-                    <br><br>
-                    <b>Writeup:</b>
-                    Establish a connection to the bandit15 machine. According to the level goal, we need to establish an
-                    SSL connection to the localhost on port 30001. Read the manual for openssl with the command, "man
-                    openssl".
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit15-1.png" alt="Terminal window" class="center">
-                    <br>
-                    Following the shown syntax, establish an SSL connection through the command, "openssl s_client
-                    localhost:30001". With this command, we establish a secure SSL connection with "s_client" that
-                    instructs openssl to act as a client and initiate a connection to a remote server. "Localhost" is
-                    the server address we wish to connect to and "30001" is the port.
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit15-2.png" alt="Terminal window" class="center">
-                    <br>
-                    Like in the last challenge, we need to paste and enter the password to this current level for the
-                    next level's password.
-                </p>
-                <hr>
+        <main>
+            <h2>OverTheWire: Bandit 20 → 24:</h2>
+            <hr>
+            <h3>Bandit Level 20 → 21:</h3>
+            <p>
+                <b><u>Level Goal:</u></b> There is a setuid binary in the homedirectory that does the following: it
+                makes a connection to localhost on the port you specify as a commandline argument. It then reads a line
+                of text from the connection and compares it to the password in the previous level (bandit20). If the
+                password is correct, it will transmit the password for the next level (bandit21).
+                <br><br>
+                <b><u>Writeup:</u></b>
+                Connect to bandit20, listing the files shows a setuid executable called "suconnect". Upon executing the
+                file, we are shown the proper syntax to use it.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit20-1.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img1')" id="img1">
+                <br>
+                As stated in the description, the file makes a connection to the localhost on the specified port and
+                reads a line of text from the connection. It then compares it to the bandit20 (current) password and if
+                the passwords match, it will give us the bandit21 (next) password.
+                <br>
+                Lets open a new terminal to establish a port that suconnect will listen on. First, we need to establish
+                an ssh connection to bandit20 as we know the connection is made on the localhost. After logging in, we
+                want to create a Netcat listener on any specified port. We can do this with the command "nc -lvnp port"
+                (-l = listening mode, v = verbose, n = numeric, p = port). Then enter our level's flag.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit20-2.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img2')" id="img2">
+                <br>
+                Back in our initial terminal window, we want to execute the suconnect file with the specified port we
+                created our Netcat listener on. Use the command ("./suconnect port") if the passwords match, we get our
+                password.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit20-3.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img3')" id="img3">
+            </p>
+            <hr>
 
-                <h2>Bandit Level 16 → 17:</h2>
-                <p>
-                    <b>Level Goal:</b> The credentials for the next level can be retrieved by submitting the password of
-                    the current level to a port on localhost in the range 31000 to 32000. First find out which of these
-                    ports have a server listening on them. Then find out which of those speak SSL and which don’t. There
-                    is only 1 server that will give the next credentials, the others will simply send back to you
-                    whatever you send to it.
-                    <br><br>
-                    <b>Writeup:</b> SSH into server bandit16, this time, we need to scan ports 31000 to 32000 to find
-                    out which ports in this range has a server listening on them. To do this, we can use nmap. Using the
-                    command "nmap localhost -p 31000-32000", we can scan the localhost from the given range to see which
-                    server will ping back.
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit16-1.png" alt="Terminal window" class="center">
-                    <br>
-                    Next, as the level goal suggests, we need to find out which of these servers speaks SSL and which
-                    don't. Once again, use openssl to establish a connection with localhost on each port until one
-                    responds. Use the command "openssl s_client localhost:(port)".
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit16-2.png" alt="Terminal window" class="center">
-                    <br>
-                    Once we have established connection to the correct port, we are given an RSA private key. This is
-                    most likely our encrypted password. We can use it to log into the next level. Exit the machine,
-                    create a text file with the copied RSA text. Use the command "nano key.txt", we can use this file to
-                    log into our next machine.
-                    <br><br>
-                    Using the command "ssh bandit17@bandit.labs.overthewire.org -i key.txt -p 2220" we can attempt to
-                    connect to the server with the key in our text file on port 2220. Upon doing so we get an error that
-                    states, "It is required that your private key files are NOT accessible by others."
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit16-3.png" alt="Terminal window" class="center">
-                    <br>
-                    Doing some research into the chmod command, we can use the code 700 so only the owner can read,
-                    write to, or execute the text file. Use the command, "chmod 700 key.txt" to change its permissions.
-                    Now again, try to establish a new ssh connection with our file.
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit16-4.png" alt="Terminal window" class="center">
-                </p>
-                <hr>
+            <h3>Bandit Level 21 → 22:</h3>
+            <p>
+                <b><u>Level Goal:</u></b> A program is running automatically at regular intervals from cron, the
+                time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being
+                executed
+                <br><br>
+                <b><u>Writeup:</u></b> Connect to the bandit21 machine, cd into the provided /etc/cron.d directory.
+                Cat the cronjob_bandit22 file to see the commands that it executes. It looks like the file executes the
+                shell script at /usr/bin/cronjob_bandit22 every minute as shown by the 5 asterisks (*).
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit21-1.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img4')" id="img4">
+                <br>
+                Examine the file permissions of the shell script with the ls -l command. It shows us that bandit21 (us)
+                has read and execute permissions. We can read the file with "cat /usr/bin/cronjob_bandit22.sh". Upon
+                concatenation we see that it sets the permissions of the file in the temp directory to read and write
+                for the owner and read for others (chmod 644). Additionally, it concatenates the bandit22 password and
+                writes it to the file in the temp folder.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit21-2.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img5')" id="img5">
+                <br>
+                Copy the temp file directory and concatenate the path with the cat command. This gives us the password
+                for bandit22.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit21-3.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img6')" id="img6">
+            </p>
+            <hr>
 
-                <h2>Bandit Level 17 → 18:</h2>
-                <p>
-                    <b>Level Goal:</b> There are 2 files in the homedirectory: passwords.old and passwords.new. The
-                    password for the next level is in passwords.new and is the only line that has been changed between
-                    passwords.old and passwords.new
-                    <br><br>
-                    <b>Writeup:</b> As stated in the level goal, we have two files in the home directory. Since our
-                    password is the only differing string in both passwords.new and passwords.old we need to somehow
-                    find this difference.
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit17-1.png" alt="Terminal window" class="center">
-                    <br>
-                    Upon further research, we can use the "diff" command to compare both text files. Use the command
-                    "diff passwords.new passwords.old".
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit17-2.png" alt="Terminal window" class="center">
-                    <br><br>
-                    Since passwords.new was our first parameter, our password is the first line of output.
-                </p>
-                <hr>
+            <h3>Bandit Level 22 → 23:</h3>
+            <p>
+                <b><u>Level Goal:</u></b> A program is running automatically at regular intervals from cron, the
+                time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being
+                executed.
+                <br><br>
+                <b><u>Writeup:</u></b> Similar to the last level, log into the machine, navigate to the cron.d
+                directory, and list the files. Cat the cronjob_bandit23 file, we see it executes a shell script at
+                /usr/bin/cronjob_bandit23.sh every minute. List the permissions of the cronjob_bandit23 shell script in
+                the /usr/bin directory. It looks like the owner has read, write, and execute permissions while others
+                have no permissions.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit22-1.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img7')" id="img7">
+                <br>
+                Concatenating the shell script shows us that establishes a myname variable with $(whoami) which would
+                bandit22 the machine we are currently on. Looking at the echo statement, we see it copies the password
+                at the established whoami (bandit22) and writes it to our target, but we want the password at bandit23
+                instead.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit22-2.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img8')" id="img8">
+                <br>=
+                Since we can't write to the shell script, we will need to mimic what it does with a different method. We
+                can copy the echo statement that md5 hashes the string and cuts it at a specified delimiter (space).
+                Instead of the original $myname, we want to change this to bandit23. Upon doing so, we get a new md5
+                hash with the correct name.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit22-3.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img9')" id="img9">
+                <br>
+                Since we know the hash is sent to the shown temp file, we can replace the initial target with our new
+                hash. This gets us our next flag.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit22-4.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img10')" id="img10">
+            </p>
+            <hr>
 
-                <h2>Bandit Level 18 → 19:</h2>
-                <p>
-                    <b>Level Goal:</b> The password for the next level is stored in a file readme in the homedirectory.
-                    Unfortunately, someone has modified .bashrc to log you out when you log in with SSH.
-                    <br><br>
-                    <b>Writeup:</b> As stated in the level goal, when trying to ssh into bandit18, we are immediately
-                    logged out. Looking up the ".bashrc" file, it is a script that is executed when a user logs into a
-                    server.
-                    <br><br>
-                    To my knowledge, we can't modify the .bashrc file in this situation. We need to somehow read the
-                    readme file in the home directory. Looking at the ssh manual, notice that we can actually execute a
-                    command in the remote host instead of the current shell (unlike the pipe).
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit18-1.png" alt="Terminal window" class="center">
-                    <br>
-                    This time, when typing the ssh command, append the "cat readme" command to concatenate the readme
-                    file in the home directory.
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit18-2.png" alt="Terminal window" class="center">
-                </p>
-                <hr>
+            <h3>Bandit Level 23 → 24:</h3>
+            <p>
+                <b><u>Level Goal:</u></b> A program is running automatically at regular intervals from cron, the
+                time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being
+                executed.
+                <br><br>
+                <b><u>Writeup:</u></b> Navigate to the provided cron folder and concatenate cronjob_bandit24. This leads
+                us to the bandit24 shell script it uses and cat that too.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit23-1.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img11')" id="img11">
+                <br>
+                In summary, this script changes directory to /var/spool/$myname/foo and executes the scripts owned by
+                the bandit23 user with a timeout of 60 seconds, and then deletes the scripts.
+                <br><br>
+                Lets create a working directory in the temp folder, "mkdir /tmp/name" and change directories to the
+                newly created directory. Here, we want to create our shell script that reads the bandit24 password and
+                writes it to a file that we have read permissions for. Create a shell script using any text editor. Use
+                the code below that writes the contents of /etc/bandit_pass/bandit24 to a new text file in /tmp/name.
+                Save the file and use chmod 777 (script name) to ensure everyone has full permissions on it.
+            <pre>
+                    <code class="language-python">
+#!/bin/bash
+cat /etc/bandit_pass/bandit24 > /tmp/name/name.txt
+                    </code>
+                </pre>
+            Replace name with the names we wish to use. Create an empty text file that the bash script will write to.
+            Use "touch name.txt" and "chmod 666 name.txt" to create the empty file and ensure it has read and write
+            permissions for all.
+            <br><br>
+            Next, copy our shell script to /var/spool/bandit24/foo we can wait until the script is executed. We can
+            check if the text file that is supposed to be written to has been altered with "ls -al name.txt" to see if
+            the size of the text file has increased, it should go from 0 to 33.
+            <br><br>
+            Cat the text file and we are give the flag.
+            <br><br>
+            <img src="../../../images/otw_imgs/Bandit23-2.png" alt="Terminal window"
+                style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img12')" id="img12">
+            </p>
+            <hr>
 
-                <h2>Bandit Level 19 -> 20:</h2>
-                <p>
-                    <b>Level Goal:</b> To gain access to the next level, you should use the setuid binary in the
-                    homedirectory. Execute it without arguments to find out how to use it. The password for this level
-                    can be found in the usual place (/etc/bandit_pass), after you have used the setuid binary.
-                    <br><br>
-                    <b>Writeup:</b> After successful connection to bandit19, "ls" to see a file called "bandit20-do".
-                    For more information on the file, use the "file bandit20-do" command. We see the file is a setuid
-                    executable. Execute the file with "./bandit20-do" and we are shown that we can run a command as
-                    another use with the file.
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit19-1.png" alt="Terminal window" class="center">
-                    <br>
-                    Knowing that the password is located in the directory, /etc/bandit_pass/bandit20, we can cat the
-                    bandit20 password with the executable. Use the command "./bandit20-do cat /etc/bandit_pass/bandit20"
-                    which gives us our next password.
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit19-2.png" alt="Terminal window" class="center">
-                </p>
-                <hr>
+            <h3>Bandit Level 24 → 25:</h3>
+            <p>
+                <b><u>Level Goal:</u></b> A daemon is listening on port 30002 and will give you the password for
+                bandit25 if given the password for bandit24 and a secret numeric 4-digit pincode. There is no way to
+                retrieve the pincode except by going through all of the 10000 combinations, called brute-forcing. You do
+                not need to create new connections each time
+                <br><br>
+                <b><u>Writeup:</u></b> Log into bandit24, as described in the level 4 goal, it looks like we will need
+                to create our own bash script that will utilize echo and Netcat in order to brute force the pincode.
+                Create a working directory in our temp folder if one is not already present.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit24-1.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img13')" id="img13">
+                <br>
+                Create a file that we will use as our brute force shell script. We want to echo the current level's password along with the iterations of 0000 to 9999 to Netcat port 30002 like so.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit24-2.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img14')" id="img14">
+                <br>
+                Save the script and apply executable permissions with "cmod +x name.sh". Run the script and we get the password.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit24-3.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img14')" id="img14">
+            <hr>
+            </p>
+            <footer>
+                <div class="social-icons">
+                    <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
 
-            </ul>
-        </div>
+                <p>Copyright &copy; 2023 Steven Song</p>
+            </footer>
     </div>
-
-    <div class="social_icons">
-        <ul>
-            <li>
-                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank" z><img
-                        src="../../../images/icons_img/linkedin.png" alt="linkedin png">
-                    <a href="https://github.com/stsong0812" target="_blank"><img
-                            src="../../../images/icons_img/github.png" alt="github png">
-                        <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><img
-                                src="../../../images/icons_img/youtube.png" alt="youtube png">
-                            <a href="https://twitter.com/stsong0812" target="_blank"><img
-                                    src="../../../images/icons_img/twitter.png" alt="twitter png">
-            </li>
-        </ul>
-    </div>
-
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>

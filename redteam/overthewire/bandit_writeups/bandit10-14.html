@@ -28,10 +28,10 @@
             <hr>
             <h3>Bandit Level 10 → 11:</h3>
             <p>
-                <b>Level Goal:</b> The password for the next level is stored in the file data.txt, which contains
+                <b><u>Level Goal:</u></b> The password for the next level is stored in the file data.txt, which contains
                 base64 encoded data
                 <br><br>
-                <b>Writeup:</b>
+                <b><u>Writeup:</u></b>
                 This level asks us to decode the base64 encoded data stored in the text file. Upon
                 concatenating the text file, we are met with this string…
                 <br><br>
@@ -48,10 +48,11 @@
 
             <h3>Bandit Level 11 → 12:</h3>
             <p>
-                <b>Level Goal:</b> The password for the next level is stored in the file data.txt, where all
+                <b><u>Level Goal:</u></b> The password for the next level is stored in the file data.txt, where all
                 lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions
                 <br><br>
-                <b>Writeup:</b> This level also takes a bit of decoding, the letters are encoded in ROT13, a letter
+                <b><u>Writeup:</u></b> This level also takes a bit of decoding, the letters are encoded in ROT13, a
+                letter
                 substitution cipher that replaces a given letter with one that follows 13 places after it.
                 <br><br>
                 Upon concatenating the data text file, we are shown this:
@@ -67,12 +68,14 @@
                 tr [SET1] [SET2], In this case, tr will replace the characters within the first set with the
                 corresponding characters from the second set.
                 <br><br>
-                “a-zA-Z” represents our first set, including lowercase and uppercase letters of the alphabet. These are the letters
+                “a-zA-Z” represents our first set, including lowercase and uppercase letters of the alphabet. These are
+                the letters
                 that will be replaced.
                 <br><br>
                 “n-za-zN-ZA-M” represents our second set, the letters that will take the place of our first set.
                 This set starts 13 letters after a, and because the translation won’t go further than z, we start it
-                again at a-m. Again, also including the uppercase counterparts. With this, we are given the password to the next level.
+                again at a-m. Again, also including the uppercase counterparts. With this, we are given the password to
+                the next level.
                 <br><br>
                 <img src="../../../images/otw_imgs/Bandit11-2.png" alt="Terminal window"
                     style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img4')" id="img4">
@@ -81,12 +84,13 @@
 
             <h3>Bandit Level 12 → 13:</h3>
             <p>
-                <b>Level Goal:</b> The password for the next level is stored in the file data.txt, which is a
+                <b><u>Level Goal:</u></b> The password for the next level is stored in the file data.txt, which is a
                 hexdump of a file that has been repeatedly compressed. For this level it may be useful to create a
                 directory under /tmp in which you can work using mkdir. For example: mkdir /tmp/myname123. Then copy
                 the datafile using cp, and rename it using mv (read the manpages!)
                 <br><br>
-                <b>Writeup:</b> This level asks us to uncover the password in this hexdump. According to Wikipedia,
+                <b><u>Writeup:</u></b> This level asks us to uncover the password in this hexdump. According to
+                Wikipedia,
                 a hexdump is a hexadecimal view of computer data, in a hex dump, each byte (8 bits) is represented
                 as a two-digit hexadecimal number. This is evident when we cat the data.txt file.
                 <br><br>
@@ -164,12 +168,12 @@
 
             <h3>Bandit Level 13 → 14:</h3>
             <p>
-                <b>Level Goal:</b> The password for the next level is stored in /etc/bandit_pass/bandit14 and can
+                <b><u>Level Goal:</u></b> The password for the next level is stored in /etc/bandit_pass/bandit14 and can
                 only be read by user bandit14. For this level, you don’t get the next password, but you get a
                 private SSH key that can be used to log into the next level. Note: localhost is a hostname that
                 refers to the machine you are working on
                 <br><br>
-                <b>Writeup:</b> In typing the ls command, we see that the ssh key, “sshkey.private” is in our
+                <b><u>Writeup:</u></b> In typing the ls command, we see that the ssh key, “sshkey.private” is in our
                 working directory. We utilize this key within our ssh command, like so, “ssh bandit14@localhost -i
                 sshkey.private -p 2220”. Localhost is stated here as we are connecting to the machine through our
                 own localhost, additionally, we use the -i flag to specify a file containing the private key we need
@@ -188,12 +192,13 @@
             </p>
             <hr>
 
-            <h2>Bandit Level 14 → 15:</h2>
+            <h3>Bandit Level 14 → 15:</h3>
             <p>
-                <b>Level Goal:</b> The password for the next level can be retrieved by submitting the password of
+                <b><u>Level Goal:</u></b> The password for the next level can be retrieved by submitting the password of
                 the current level to port 30000 on localhost.
                 <br><br>
-                <b>Writeup:</b> Here the level requires us to retrieve the next level’s password by submitting the
+                <b><u>Writeup:</u></b> Here the level requires us to retrieve the next level’s password by submitting
+                the
                 password of the current level to port 30000 on localhost (our machine).
                 <br><br>
                 To do this, we use a very useful networking command-line tool called Netcat (nc). Using the command
@@ -205,16 +210,14 @@
                 <br><br>
                 <img src="../../../images/otw_imgs/Bandit13-6.png" alt="Terminal window"
                     style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img15')" id="img15">
+            <hr>
             </p>
         </main>
         <footer>
-
             <div class="social-icons">
                 <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
-                        class="fab fa-youtube"></i></a>
             </div>
 
             <p>Copyright &copy; 2023 Steven Song</p>
