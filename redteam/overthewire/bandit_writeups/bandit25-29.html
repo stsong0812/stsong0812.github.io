@@ -2,182 +2,197 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OverTheWire Bandit</title>
-  <link rel="stylesheet" href="../../../style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OverTheWire Bandit</title>
+    <link rel="stylesheet" href="../../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
 </head>
 
-
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">/Steven Song</div>
-      <nav>
-        <a href="../../../index.html">/Home</a>
-        <a href="../../../about.html">/About</a>
-        <a href="../../../redteam.html">/Red-Team</a>
-        <a href="../../../blueteam.html">/Blue-Team</a>
-        <a href="../../../misc.html">/Misc</a>
-      </nav>
-    </div>
-
     <div class="container">
-        <h1>
-            <u> <b> OverTheWire: Bandit 15→19</b> </u>
-        </h1>
+        <header>
+            <div class="brand">/Steven Song</div>
+            <nav>
+                <a href="../../../index.html">/Home</a>
+                <a href="../../../about.html">/About</a>
+                <a href="../../../redteam.html">/Red-Team</a>
+                <a href="../../../blueteam.html">/Blue-Team</a>
+                <a href="../../../misc.html">/Misc</a>
+            </nav>
+        </header>
 
-        <div>
-            <ul>
-                <h2>Bandit Level 15 → 16:</h2>
-                <p>
-                    <b>Level Goal:</b> The password for the next level can be retrieved by submitting the password of
-                    the current level to port 30001 on localhost using SSL encryption.
-                    <br><br>
-                    <b>Writeup:</b>
-                    Establish a connection to the bandit15 machine. According to the level goal, we need to establish an
-                    SSL connection to the localhost on port 30001. Read the manual for openssl with the command, "man
-                    openssl".
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit15-1.png" alt="Terminal window" class="center">
-                    <br>
-                    Following the shown syntax, establish an SSL connection through the command, "openssl s_client
-                    localhost:30001". With this command, we establish a secure SSL connection with "s_client" that
-                    instructs openssl to act as a client and initiate a connection to a remote server. "Localhost" is
-                    the server address we wish to connect to and "30001" is the port.
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit15-2.png" alt="Terminal window" class="center">
-                    <br>
-                    Like in the last challenge, we need to paste and enter the password to this current level for the
-                    next level's password.
-                </p>
+        <main>
+            <h2>OverTheWire: Bandit 25 → 29:</h2>
+            <hr>
+            <h3>Bandit Level 25 → 26:</h3>
+            <p>
+                <b><u>Level Goal:</u></b> Logging in to bandit26 from bandit25 should be fairly easy… The shell for user
+                bandit26 is not /bin/bash, but something else. Find out what it is, how it works and how to break out of
+                it.
+                <br><br>
+                <b><u>Writeup:</u></b>
+                Listing the files of the home directory of bandit25 shows us a file called "bandit26.sshkey". Lets try
+                sshing into bandit26 with this key. Type the command "ssh bandit26@localhost -p 2220 -i
+                bandit26.sshkey". Upon making the ssh request, it looks like we are initially logged in but our
+                connection to localhost eventually closes.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit25-1.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img1')" id="img1">
+                <br>
+                Observing the level goal, it states the user bandit26 is not /bin/bash. Lets check what shell bandit26
+                is running with the command "cat /etc/passwd | grep bandit26". The "/home/bandit26:/usr/bin/showtext
+                indicates the default shell the machine is running, in this case "showtext". Lets cat this file, with
+                "cat /usr/bin/showtext".
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit25-2.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img2')" id="img2">
+                <br>
+                The shell script, showtext first sets the terminal name to "linux" then opens the "text.txt" file using
+                "more" then exits. The more command is a way to read text files one page at a time. It looks like if we
+                stop the exit condition from occuring, we can stay in the more window and proceed from there. Re-run the
+                ssh command with your terminal extremely short.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit25-3.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img3')" id="img3">
+                <br>
+                Confirmed by the --More-- tag at the bottom of our terminal, we are still in the more window. From here,
+                we can use "vim" to execute command-line prompts. Press "v" to initialize vim, then we can enter the
+                command ":e /etc/bandit_pass/bandit26" to read the bandit26 password.
+                <br><br>
+                <b>Note:</b> If you are continuing from bandit25 to bandit26, stay in the vim window.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit25-4.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img4')" id="img4">
+            </p>
+            <hr>
+
+            <h3>Bandit Level 26 → 27:</h3>
+            <p>
+                <b><u>Level Goal:</u></b>Good job getting a shell! Now hurry and grab the password for bandit27!
+                <br><br>
+                <b><u>Writeup:</u></b> If you are establishing a new ssh connection, make sure your terminal window is
+                very short so it stays in the "more" window. Again, press "v" to open vim.
+                <br><br>
+                From here, we can use the command, ":set shell=/bin/sh" to set the bandit26 shell to a bash shell.
+                Additionally, run the ":!command" command so we can start prompting commands to the shell. With this let
+                try ":!ls" to view the files in the home directory.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit26-1.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img5')" id="img5">
+                <br>
+                Lets try running the bandit27-do executable. Use the command ":!./bandit27-do" to see what the
+                executable does. From the output it looks like we can run commands with this script with higher
+                privileges. This time, execute the script with the command "cat /etc/bandit_pass/bandit27" to cat the
+                password.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit26-2.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img6')" id="img6">
+            </p>
+            <hr>
+
+            <h3>Bandit Level 27 → 28:</h3>
+            <p>
+                <b><u>Level Goal:</u></b> There is a git repository at
+                ssh://bandit27-git@localhost/home/bandit27-git/repo via the port 2220. The password for the user
+                bandit27-git is the same as for the user bandit27. Clone the repository and find the password for the
+                next level.
+                <br><br>
+                <b><u>Writeup:</u></b> From the level goal, it looks like we need to clone the repository at the given
+                location. Lets create a working directory in our temp folder with "mkdir /tmp/name".
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit27-1.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img7')" id="img7">
+                <br>
+                In our temp folder, clone the repository at the provided path with "git clone (path)" including our
+                port, :"2220" after localhost. Enter the password and the repository is successfully cloned. In the
+                repository is a README file, cat the file and we are given the flag.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit27-2.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img8')" id="img8">
+            </p>
+            <hr>
+
+            <h3>Bandit Level 28 → 29:</h3>
+            <p>
+                <b><u>Level Goal:</u></b> There is a git repository at
+                ssh://bandit28-git@localhost/home/bandit28-git/repo via the port 2220. The password for the user
+                bandit28-git is the same as for the user bandit28.
+                <br><br>
+                <b><u>Writeup:</u></b> Clone the repository and find the password for the next level.
+                <br><br>
+                Like in our last challenge, we need to clone the git repository at the provided path. Create a temp
+                folder where we will clone the repository.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit28-1.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img9')" id="img9">
+                <br>
+                Now clone the repository with "git clone (path)" remembering to include the correct port (":2220") after
+                "localhost". Enter the password and the repository is successfully cloned into our working directory.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit28-2.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img10')" id="img10">
+                <br>
+                In our repository folder, we see a README.md file. Cat the file and we get some notes regarding
+                bandit29. Specifically, we get the username and hidden password for bandit29. Use the "git log" command
+                to view past "commits" (saves) of the repository. Here we see the author has already commit a "fix info
+                leak". We can view the changes made with the command "git log -p -1". "-p" to display the changes made
+                to the files in each commit, and "-1" to only outputs the latest commit.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit28-3.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img11')" id="img11">
+                <br>
+            </p>
+            <hr>
+
+            <h3>Bandit Level 29 → 30:</h3>
+            <p>
+                <b><u>Level Goal:</u></b> There is a git repository at
+                ssh://bandit29-git@localhost/home/bandit29-git/repo via the port 2220. The password for the user
+                bandit29-git is the same as for the user bandit29.
+                <br><br>
+                <b><u>Writeup:</u></b> Clone the repository and find the password for the next level
+                <br><br>
+                Again, create or navigate to a working directory in /tmp/. Lets clone the repository with the given
+                path. "git clone (path)" specifying the port. Upon successful cloning, we navigate to the README.md
+                file. Upon concatenating the file, we get the username but no password.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit29-1.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img12')" id="img12">
+                <br>
+                Lets try checking the logs with "git log" we don't see much, only the initial commit and a fix to the
+                username. We can try checking the changes made in case the commit messages are incorrect. Try "git log
+                -p". Unluckily we don't see much from the logs.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit29-2.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img13')" id="img13">
+                <br>
+                Lets try looking around some more, use "git branch" to view the different branches of the repository.
+                Git branches allows the author to develop features, fix bugs, or safely experiment with new ideas in a
+                contained area of the repository. Use the command "git branch -r" to list the remote branches instead of
+                just the local ones. We see more branches, select the /dev branch with command "git checkout dev". Now
+                we can check the changes made with git log -p and we see the password in the latest change.
+                <br><br>
+                <img src="../../../images/otw_imgs/Bandit29-3.png" alt="Terminal window"
+                    style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img14')" id="img14">
+                <br>
                 <hr>
+            </p>
+            <footer>
+                <div class="social-icons">
+                    <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
 
-                <h2>Bandit Level 16 → 17:</h2>
-                <p>
-                    <b>Level Goal:</b> The credentials for the next level can be retrieved by submitting the password of
-                    the current level to a port on localhost in the range 31000 to 32000. First find out which of these
-                    ports have a server listening on them. Then find out which of those speak SSL and which don’t. There
-                    is only 1 server that will give the next credentials, the others will simply send back to you
-                    whatever you send to it.
-                    <br><br>
-                    <b>Writeup:</b> SSH into server bandit16, this time, we need to scan ports 31000 to 32000 to find
-                    out which ports in this range has a server listening on them. To do this, we can use nmap. Using the
-                    command "nmap localhost -p 31000-32000", we can scan the localhost from the given range to see which
-                    server will ping back.
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit16-1.png" alt="Terminal window" class="center">
-                    <br>
-                    Next, as the level goal suggests, we need to find out which of these servers speaks SSL and which
-                    don't. Once again, use openssl to establish a connection with localhost on each port until one
-                    responds. Use the command "openssl s_client localhost:(port)".
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit16-2.png" alt="Terminal window" class="center">
-                    <br>
-                    Once we have established connection to the correct port, we are given an RSA private key. This is
-                    most likely our encrypted password. We can use it to log into the next level. Exit the machine,
-                    create a text file with the copied RSA text. Use the command "nano key.txt", we can use this file to
-                    log into our next machine.
-                    <br><br>
-                    Using the command "ssh bandit17@bandit.labs.overthewire.org -i key.txt -p 2220" we can attempt to
-                    connect to the server with the key in our text file on port 2220. Upon doing so we get an error that
-                    states, "It is required that your private key files are NOT accessible by others."
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit16-3.png" alt="Terminal window" class="center">
-                    <br>
-                    Doing some research into the chmod command, we can use the code 700 so only the owner can read,
-                    write to, or execute the text file. Use the command, "chmod 700 key.txt" to change its permissions.
-                    Now again, try to establish a new ssh connection with our file.
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit16-4.png" alt="Terminal window" class="center">
-                </p>
-                <hr>
-
-                <h2>Bandit Level 17 → 18:</h2>
-                <p>
-                    <b>Level Goal:</b> There are 2 files in the homedirectory: passwords.old and passwords.new. The
-                    password for the next level is in passwords.new and is the only line that has been changed between
-                    passwords.old and passwords.new
-                    <br><br>
-                    <b>Writeup:</b> As stated in the level goal, we have two files in the home directory. Since our
-                    password is the only differing string in both passwords.new and passwords.old we need to somehow
-                    find this difference.
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit17-1.png" alt="Terminal window" class="center">
-                    <br>
-                    Upon further research, we can use the "diff" command to compare both text files. Use the command
-                    "diff passwords.new passwords.old".
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit17-2.png" alt="Terminal window" class="center">
-                    <br><br>
-                    Since passwords.new was our first parameter, our password is the first line of output.
-                </p>
-                <hr>
-
-                <h2>Bandit Level 18 → 19:</h2>
-                <p>
-                    <b>Level Goal:</b> The password for the next level is stored in a file readme in the homedirectory.
-                    Unfortunately, someone has modified .bashrc to log you out when you log in with SSH.
-                    <br><br>
-                    <b>Writeup:</b> As stated in the level goal, when trying to ssh into bandit18, we are immediately
-                    logged out. Looking up the ".bashrc" file, it is a script that is executed when a user logs into a
-                    server.
-                    <br><br>
-                    To my knowledge, we can't modify the .bashrc file in this situation. We need to somehow read the
-                    readme file in the home directory. Looking at the ssh manual, notice that we can actually execute a
-                    command in the remote host instead of the current shell (unlike the pipe).
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit18-1.png" alt="Terminal window" class="center">
-                    <br>
-                    This time, when typing the ssh command, append the "cat readme" command to concatenate the readme
-                    file in the home directory.
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit18-2.png" alt="Terminal window" class="center">
-                </p>
-                <hr>
-
-                <h2>Bandit Level 19 -> 20:</h2>
-                <p>
-                    <b>Level Goal:</b> To gain access to the next level, you should use the setuid binary in the
-                    homedirectory. Execute it without arguments to find out how to use it. The password for this level
-                    can be found in the usual place (/etc/bandit_pass), after you have used the setuid binary.
-                    <br><br>
-                    <b>Writeup:</b> After successful connection to bandit19, "ls" to see a file called "bandit20-do".
-                    For more information on the file, use the "file bandit20-do" command. We see the file is a setuid
-                    executable. Execute the file with "./bandit20-do" and we are shown that we can run a command as
-                    another use with the file.
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit19-1.png" alt="Terminal window" class="center">
-                    <br>
-                    Knowing that the password is located in the directory, /etc/bandit_pass/bandit20, we can cat the
-                    bandit20 password with the executable. Use the command "./bandit20-do cat /etc/bandit_pass/bandit20"
-                    which gives us our next password.
-                    <br><br>
-                    <img src="../../../images/bandit_img/Bandit19-2.png" alt="Terminal window" class="center">
-                </p>
-                <hr>
-
-            </ul>
-        </div>
+                <p>Copyright &copy; 2023 Steven Song</p>
+            </footer>
     </div>
-
-    <div class="social_icons">
-        <ul>
-            <li>
-                <a href="https://www.linkedin.com/in/stsong0812/" target="_blank" z><img
-                        src="../../../images/icons_img/linkedin.png" alt="linkedin png">
-                    <a href="https://github.com/stsong0812" target="_blank"><img
-                            src="../../../images/icons_img/github.png" alt="github png">
-                        <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><img
-                                src="../../../images/icons_img/youtube.png" alt="youtube png">
-                            <a href="https://twitter.com/stsong0812" target="_blank"><img
-                                    src="../../../images/icons_img/twitter.png" alt="twitter png">
-            </li>
-        </ul>
-    </div>
-
+    <script src="../../../scripts/enlarge_img.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </body>
 
 </html>
