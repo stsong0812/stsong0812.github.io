@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OverTheWire Leviathan</title>
+  <link rel="stylesheet" href="../../../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">/Steven Song</div>
+      <nav>
+        <a href="../../../index.html">/Home</a>
+        <a href="../../../about.html">/About</a>
+        <a href="../../../redteam.html">/Red-Team</a>
+        <a href="../../../blueteam.html">/Blue-Team</a>
+        <a href="../../../misc.html">/Misc</a>
+      </nav>
+    </header>
+
+    <main>
+      <h2>Leviathan Level 0 → 3:</h2>
+      <hr>
+      <h3>Leviathan Level 0:</h3>
+      <p>
+        <b><u>Level Goal:</u></b>
+        Username: leviathan0 <br>
+        Password: leviathan0 <br>
+        SSH: leviathan.labs.overthewire.org
+        <br><br>
+        <b><u>Writeup:</u></b> List the files in the home directory with ls -al and we see a .backup directory that we
+        have read permissions for.
+        <br><br>
+        To connect to the bandit 0 game, enter this command to your terminal (ssh
+        bandit0@bandit.labs.overthewire.org -p 2220):
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi0-1.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img1')" id="img1">
+        <br>
+        Navigate to the .backup directory and list the files in this directory. This time, we see a bookmarks.html. We
+        can read the contents of the file with the cat command.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi0-2.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img2')" id="img2">
+        <br>
+        The output from the cat command seems far too long to manually read through. Provided that our flag is probably
+        hidden in the output, we can re-run the cat command this time, looking for the string "password". Pipe the cat
+        command with the grep command looking for "password" to get our password.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi0-3.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img3')" id="img3">
+        <hr>
+      </p>
+
+      <h3>Leviathan Level 0 → 1:</h3>
+      <p>
+        <b><u>Level Goal:</u></b>
+        Username: leviathan1 <br>
+        SSH: leviathan.labs.overthewire.org -p 2223
+        <br><br>
+        <b><u>Writeup:</u></b> SSH into the leviathan1 machine. Listing the files in the home directory we see a check
+        file. We can check the specific type of the file using the file command.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi1-1.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img4')" id="img4">
+        <br>
+        We see our file is a setuid executable that we can run with the ./ prefix. We see that running the command asks
+        us for a password. Using a test password tells us we we are wrong and the program ends.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi1-2.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img5')" id="img5">
+        <br>
+        To look at the inner workings of the file, we can run the file with ltrace. Ltrace is a program that runs the
+        specified command until it exits. It interprets and records the dynamic library calls which are called by the
+        process. Running through the program with ltrace, we see a string compare (strcmp) of the first 3 characters of
+        our input with the string "sex". So sex is our password for the process.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi1-3.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img6')" id="img6">
+        <br>
+        Entering our password gives us a shell in the leviathan2 machine. From here we can cat the passwords file
+        located in /etc/leviathan_pass/leviathan2.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi1-4.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img7')" id="img7">
+        <br>
+        <hr>
+      </p>
+
+      <h3>Leviathan Level 1 → 2:</h3>
+      <p>
+        <b><u>Level Goal:</u></b>
+        Username: leviathan2 <br>
+        SSH: leviathan.labs.overthewire.org -p 2223
+        <br><br>
+        <b><u>Writeup:</u></b> Listing the files in our home directory, we see an executable file called "printfile".
+        Attempting to run the file shows that we need a filename to input as an argument. Attempting to print the
+        leviathan3 password through the program tells us that we can't have that file.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi2-1.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img8')" id="img8">
+        <br>
+        Using ltrace we can see how the function works. Run ltrace with printfile to print the contents of
+        /etc/leviathan_pass/leviathan3. We get the following output...
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi2-2.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img9')" id="img9">
+        <br>
+        In the ltrace output we see our filename argument being passed into the access function along with a 4. It looks
+        like the program checks if we have read access for the leviathan3 password and because we don't, returns a -1
+        and exits the program. Lets try executing the printfile program with a test program we know we have access to.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi2-3.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img10')" id="img10">
+        <br>
+        Now notice after the access check, the program uses the snprintf function to construct a command string that
+        will be passed to the system function. From there, the system function straight out executes the /bin/cat to
+        read the file. We can try to create a file that will take advantage of a command injection here.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi2-4.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img11')" id="img11">
+        <br>
+        By creating a file with a semicolon in its name, we can inject the command bash. Which launched a new shell with
+        escalated privileges. Now being on the leviathan3 machine, we can cat the password for the level.
+        <hr>
+      </p>
+
+      <h3>Bandit Level 2 → 3:</h3>
+      <p>
+        <b><u>Level Goal:</u></b>
+        Username: leviathan3 <br>
+        SSH: leviathan.labs.overthewire.org -p 2223
+        <br><br>
+        <b><u>Writeup:</u></b> In this level, we have an executable called "level3". Upon execution, it looks like we
+        need to enter the correct password. Inputting test input displays a wrong password message.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi3-1.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img12')" id="img12">
+        <br>
+        Lets try running the program with ltrace to see how it works. It looks like a strcmp (string compare) function
+        is used to check if our input matches "snlprintf\n". Additionally, seeing that the program already appends a
+        newline character ("\n") to our input, lets input "snlprintf" as our password.
+        <br><br>
+        <img src="../../../images/otw_imgs/levi3-2.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img13')" id="img13">
+        <br>
+        Entering the correct password gives us a shell. Running whoami tells us that we are leviathan4. We can easily
+        cat the level's password.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi3-3.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img14')" id="img14">
+        <hr>
+      </p>
+    </main>
+    <footer>
+
+      <div class="social-icons">
+        <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+            class="fab fa-youtube"></i></a>
+      </div>
+
+      <p>Copyright &copy; 2023 Steven Song</p>
+    </footer>
+  </div>
+  <script src="../../../scripts/enlarge_img.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+
+</html>

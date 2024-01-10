@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OverTheWire Leviathan</title>
+  <link rel="stylesheet" href="../../../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+</head>
+
+
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">/Steven Song</div>
+      <nav>
+        <a href="../../../index.html">/Home</a>
+        <a href="../../../about.html">/About</a>
+        <a href="../../../redteam.html">/Red-Team</a>
+        <a href="../../../blueteam.html">/Blue-Team</a>
+        <a href="../../../misc.html">/Misc</a>
+      </nav>
+    </header>
+
+    <main>
+      <h2>Leviathan Level 4 → 7:</h2>
+      <hr>
+      <h3>Leviathan Level 3 → 4:</h3>
+      <p>
+        <b><u>Level Goal:</u></b>
+        Username: leviathan4 <br>
+        SSH: leviathan.labs.overthewire.org -p 2223
+        <br><br>
+        <b><u>Writeup:</u></b> Upon listing the files in our working directory, we don't seem to get an output. Run ls
+        -a instead to look for hidden files.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi4-1.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img1')" id="img1">
+        <br>
+        Doing so shows a ".trash" directory. Changing directory to the trash directory, we see a bin executable file.
+        Run this executable.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi4-2.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img2')" id="img2">
+        <br>
+        Running the bin file, we are given a binary string. We can convert this binary string to ASCII with rapidtables.
+        Copy the bin out put to the convert for our next password.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi4-3.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img3')" id="img3">
+        <hr>
+      </p>
+
+      <h3>Leviathan Level 4 → 5:</h3>
+      <p>
+        <b><u>Level Goal:</u></b>
+        Username: leviathan5 <br>
+        SSH: leviathan.labs.overthewire.org -p 2223
+        <br><br>
+        <b><u>Writeup:</u></b> Executing the file in our working directory, the program displays, "Cannot find
+        /tmp/file.log".
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi5-1.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img4')" id="img4">
+        <br>
+        Using ltrace on the leviathan5 executable, we see that the file attempts to open a file called "file.log" in the
+        temp directory using fopen. It looks like we can create a symbolically linked file that will redirect the
+        program to concatenating the leviathan6 password.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi5-2.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img5')" id="img5">
+        <hr>
+      </p>
+
+      <h3>Leviathan Level 5 → 6:</h3>
+      <p>
+        <b><u>Level Goal:</u></b>
+        Username: leviathan6 <br>
+        SSH: leviathan.labs.overthewire.org -p 2223
+        <br><br>
+        <b><u>Writeup:</u></b> This time, we have a executable file that asks us to input a four digit code as an
+        argument.
+        <br><br>
+        <img src="../../../images/otw_imgs/Levi6-1.png" alt="Terminal window"
+          style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img6')" id="img6">
+        <br>
+        Attempting to ltrace the program, we don't seem to get any exposed code that will show us the password. It looks
+        like we can easily brute force the four digit code using a simple bash script. Create a temp directory to use as
+        our working directory. Using nano create a file with the following code:
+      <pre>
+          <code>
+            #!/bin/bash
+
+            for i in {0000..9999}
+            do
+            ~/leviathan6 $i
+            done
+          </code>
+        </pre>
+      <br><br>
+      <img src="../../../images/otw_imgs/Levi6-2.png" alt="Terminal window"
+        style="max-width: 60%; display: block; margin: 0 auto;" onclick="toggleImgSize('img7')" id="img7">
+      <br>
+      <hr>
+      </p>
+
+      <h3>Bandit Level 6 → 7:</h3>
+      <p>
+        <b><u>Level Goal:</u></b>
+        Username: leviathan7 <br>
+        SSH: leviathan.labs.overthewire.org -p 2223
+        <br><br>
+        <b><u>Writeup:</u></b> END OF LEVIATHAN
+    </main>
+    <footer>
+
+      <div class="social-icons">
+        <a href="https://github.com/stsong0812" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/stsong0812/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://twitter.com/stsong0812" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.youtube.com/channel/UCuS9ayL7pfooprPNrf2G6Qg" target="_blank"><i
+            class="fab fa-youtube"></i></a>
+      </div>
+
+      <p>Copyright &copy; 2023 Steven Song</p>
+    </footer>
+  </div>
+  <script src="../../../scripts/enlarge_img.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+
+</html>
