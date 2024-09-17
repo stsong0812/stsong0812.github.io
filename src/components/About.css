@@ -1,0 +1,38 @@
+/* Set default margin and padding */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Float the image to the left, allowing text to wrap around it */
+.icon-img {
+    width: 140px; /* Adjust to desired size */
+    height: auto;
+    float: left; /* Floats the image to the left of the text */
+    margin-right: 20px; /* Adds space between the image and the text */
+    margin-bottom: 10px; /* Adds space below the image */
+    border-radius: 10px; /* Optional: Add some rounded corners */
+}
+
+/* Style the description */
+.description {
+    text-align: left; /* Align text to the left */
+    max-width: 800px; /* Ensure the text doesn't stretch too wide */
+}
+
+/* Center the social icons */
+.social-icons {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Style the anchor tags */
+.social-icons a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 2rem;
+}
