@@ -32,24 +32,11 @@ main {
     font-size: 1rem;
 }
 
-/* Flexbox layout for content, centering items horizontally and vertically */
-.content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Flexbox items for ASCII art and description, with margins */
-.ascii, .description {
-    flex: 1;
-    margin: 10px;
-}
-
 /* ASCII art monospace font, preserved whitespace, left-aligned text */
 .ascii {
     font-family: monospace;
     white-space: pre;
-    text-align: left;
+    text-align: center;
 }
 
 /* Font size, padding, max width, and left-aligned text */
@@ -57,7 +44,7 @@ main {
     font-size: 1rem;
     padding: 10px;
     max-width: 300px;
-    text-align: left;
+    text-align: center;
 }
 
 /* Center the social icons and add margin */

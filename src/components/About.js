@@ -10,21 +10,20 @@ const About = () => {
                 <p>About Me</p>
 
                 <div className="description">
-                    {/* Image will float and text will wrap around it */}
                     <img src={icon} alt="Icon PNGs by Vecteezy" className="icon-img" />
                     <p>
                         Hello! My name is Steven and I am a student at California State University Fullerton (CSUF) pursuing a bachelor's in
                         Computer Science with a concentration on Cybersecurity. I am actively seeking entry-level job opportunities and
                         internships focused on blue team cybersecurity roles.
                         <br /><br />
-                        My relevant experience includes threat intelligence, network security, web security, endpoint security, incident response, 
-                        cryptography, governance, risk assessment, and identity and access management (IAM). Additionally, I have a strong programming 
-                        background with hands-on experience in software development and collaborative team environments. I have developed and deployed 
+                        My relevant experience includes threat intelligence, network security, web security, endpoint security, incident response,
+                        cryptography, governance, risk assessment, and identity and access management (IAM). Additionally, I have a strong programming
+                        background with hands-on experience in software development and collaborative team environments. I have developed and deployed
                         projects such as a personal portfolio using React, a centralized password manager, and an online quiz application.
                         <br /><br />
-                        My cybersecurity experience is built on earning the CompTIA Security+ certification, participating in red and blue team competitions, 
-                        and completing coursework at CSUF. II also have hands-on experience with tools such as VMware, Splunk, BurpSuite, Wireshark, Snort, 
-                        and Metasploit. Additionally, I have knowledge of frameworks including NIST, CIS Controls, MITRE ATT&CK, and ISO/IEC, with more to 
+                        My cybersecurity experience is built on earning the CompTIA Security+ certification, participating in red and blue team competitions,
+                        and completing coursework at CSUF. II also have hands-on experience with tools such as VMware, Splunk, BurpSuite, Wireshark, Snort,
+                        and Metasploit. Additionally, I have knowledge of frameworks including NIST, CIS Controls, MITRE ATT&CK, and ISO/IEC, with more to
                         come as I continue to learn.
                     </p>
                 </div>
