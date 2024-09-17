@@ -22,17 +22,3 @@ body, html {
     text-align: left; /* Align text to the left */
     max-width: 800px; /* Ensure the text doesn't stretch too wide */
 }
-
-/* Center the social icons */
-.social-icons {
-    text-align: center;
-    margin: 20px 0;
-}
-
-/* Style the anchor tags */
-.social-icons a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: #fff;
-    font-size: 2rem;
-}

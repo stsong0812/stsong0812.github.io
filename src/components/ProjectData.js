@@ -21,9 +21,9 @@ const projectData = {
     // Array of coding projects
     coding: [
         {
-            title: "Quiz App",
-            description: "A project showcasing HTML/CSS/JS skills.",
-            link: "https://github.com/stsong0812/CPSC-349-Project-1---Quiz-App.git"
+            title: "Centralized Password Manager",
+            description: "A centralized password management app",
+            link: "https://github.com/stsong0812/TitanLock"
         },
         {
             title: "Python for Cybersecurity",
@@ -31,9 +31,9 @@ const projectData = {
             link: "https://github.com/stsong0812/Python-for-Cybersecurity.git"
         },
         {
-            title: "Offline Password Manager",
-            description: "Offline password managing app. (Coming Soon)", 
-            link: "https://github.com/stsong0812/Python-for-Cybersecurity.git"
+            title: "Online Quiz App",
+            description: "An online quiz app that tests general knowledge", 
+            link: "https://github.com/stsong0812/CPSC-349-Project-1---Quiz-App"
         }
     ],
     // Array of other miscellaneous projects

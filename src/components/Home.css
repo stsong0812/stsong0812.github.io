@@ -1,6 +1,5 @@
-/* Set default margin and padding */
-body,
-html {
+/* Set default margin, padding, and height, and use flexbox for column layout */
+body, html {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -8,50 +7,56 @@ html {
     flex-direction: column;
 }
 
-.intro-text {
-    text-align: center;
-}
-
-.ascii {
-    text-align: center;
-}
-
-/* Footer styling */
-footer {
-    padding: 10px 0;
-    text-align: center;
-    background-color: #333;
-    color: #fff;
-}
-
-/* Container for social media icons */
-.social-icons {
-    display: flex;
-    justify-content: center; /* Centers icons horizontally */
-    padding: 20px 0; /* Add some padding */
-}
-
-/* Styling for each social media icon link */
-.social-icons a {
-    margin: 0 5px;
-    color: #fff;
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
-}
-
-/* Hover effect for the social media icons */
-.social-icons a:hover {
-    color: #61dafb;
-}
-
+/* Container takes full available height and uses flexbox for column layout, centering content */
 .container {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    justify-content: space-between;
+    align-items: center;
 }
 
-footer {
-    margin-top: auto; /* Pushes footer to the bottom if content is short */
+/* Main section takes full available space, centers content, and adds padding */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
     text-align: center;
-    width: 100%; /* Ensure full width */
+}
+
+/* Style for introductory text */
+.intro-text {
+    font-size: 1rem;
+}
+
+/* ASCII art monospace font, preserved whitespace, left-aligned text */
+.ascii {
+    font-family: monospace;
+    white-space: pre;
+    text-align: center;
+}
+
+/* Font size, padding, max width, and left-aligned text */
+.description {
+    font-size: 1rem;
+    padding: 10px;
+    max-width: 300px;
+    text-align: center;
+}
+
+/* Center the social icons and add margin */
+.social-icons {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Mrgin, no underline, white color, and large font size */
+.social-icons a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 2rem;
 }

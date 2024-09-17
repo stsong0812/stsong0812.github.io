@@ -8,10 +8,9 @@ const Certs = () => {
         <div className="container">
             {/* Main section */}
             <section id="certs">
-                <h1>Certifications</h1>
-
                 <div className="description">
                     <p>
+                    <p>Certifications</p>
                         Below are some of the certifications I have earned.
                     </p>
                     <div className="cert-images">
