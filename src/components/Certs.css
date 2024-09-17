@@ -1,0 +1,19 @@
+.description {
+    margin: 0 auto;
+    display: inline-block; /* Centers the block inside a flex container */
+    text-align: center;
+}
+
+.cert-images {
+    display: flex;
+    justify-content: center; /* Centers the images horizontally */
+    gap: 30px; /* Adds space between the images */
+    padding: 20px;
+}
+
+.cert-logo {
+    width: 450px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
